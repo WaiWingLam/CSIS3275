@@ -8,7 +8,7 @@ const Menubar = () => (
             <li><NavLink to ="/login">Login</NavLink></li>
             <li><NavLink to ="/myaccount">My account</NavLink></li>
             <li><NavLink to ="/learnskills">Look for a skill</NavLink></li>
-            <li><NavLink to ="/postskills">Teach a skill</NavLink></li>
+            <li><NavLink to ="/postskills">Post a skill</NavLink></li>
         </ul>
     </header>
 );

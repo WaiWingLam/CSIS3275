@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 
 // App components
 import Home from './Home';
@@ -10,7 +11,9 @@ import Myaccount from './Myaccount';
 import Postskills from './Postskills';
 import Register from './Register';
 
-const App = () => (
+const App = () => {
+
+    return(
     <div className='container'>
         <Menubar />
         <Routes>
@@ -22,6 +25,7 @@ const App = () => (
             <Route path="/postskills" element={<Postskills />} />
         </Routes>
     </div>
-);
+    );
+};
 
 export default App;
