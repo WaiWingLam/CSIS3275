@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const User = require('../schemas/userschema');
+const Skill = require('../schemas/skillschema');
 
 // Do CRUD there
 
@@ -15,37 +17,40 @@ router.post('/login', async (req, res) => {
 
         console.log('From POST /login', user);
 
-        userInfo = {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            credit: user.credit
-        }
-
-        res.json({message: 'Login success!', user: userInfo});
-
-        // console.log('From POST /login:', req.session.user);
-
+        res.json({message: 'Login success!', userId: user._id, userEmail:user.email});
     } catch (error) {
-        res.json({ message: 'There is error.'});
+        res.json({ message: 'Error occurs.'});
     }
 });
 
-// POST /logout (not used)
-router.post('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if(err) {
-            return res.status(500).json({message: 'Logout failed' });
-        }
-        res.clearCookie('connect.sid');
-        res.json({ message: 'Logout success'});
-    })
-})
+// GET /myaccount/:userId
+router.get('/myaccount/:userId', async (req, res) => {
+    console.log('GET /myaccount/:userId ', req.params.userId);
 
-// GET/ myaccount (not used)
-router.get('/myaccount', (req, res) => {
-    console.log('From GET /myaccount:', req.session.user);
-    res.json({user: req.session.user});
+    const user = await User.findById(req.params.userId);
+
+    const postList = await Skill.find(
+        { postEmail: user.email }
+    )
+
+    const objectIds = user.chosenList.map(element => new mongoose.Types.ObjectId(element));
+
+    // console.log(objectIds)
+
+    const chosenList = await Skill.find(
+        { _id: { $in: objectIds } }
+    )
+    console.log(chosenList);
+
+    const response = {
+        user: user,
+        chosenList: chosenList,
+        postList: postList
+    }
+    
+    res.json({message: 'Get account info success!', info: response});
+    
+    // console.log('res',response);
 })
 
 // POST /register
@@ -64,6 +69,7 @@ router.post('/register', (req, res) => {
         res.send('Registeration success!');
     } 
 })
+
 // PUT /reducecredit
 
 router.put('/reducecredit', async (req, res) => {
@@ -73,5 +79,37 @@ router.put('/reducecredit', async (req, res) => {
         {$set: { 'credit' : req.body.credit -1}}
     )
 })
+
+// PUT /pickskil/:postemail/:skillId/:pplChosen
+router.put('/pickskill/:postEmail/:skillId/:pplChosen', async (req, res) => {
+    console.log('/pickskill/:postEmail/:skillId/:pplChosen', req.params.postEmail, req.params.skillId, req.params.pplChosen);
+    await User.updateOne(
+        { email: req.params.postEmail },
+        { $push: { 'chosenList': req.params.skillId }}
+    )
+    await Skill.findByIdAndUpdate(req.params.skillId, 
+        { $push: { 'pplChosen': req.params.pplChosen}})
+
+    res.json('You have picked up a new skill!')
+})
+
+// GET /chosenList/:userId
+// router.get('/chosenList/:userId', async (req, res) => {
+//     console.log('GET /chosenList/:userId', req.params.userId);
+
+//     const response = await User.findById(req.params.userId);
+//     console.log('res', response.chosenList);
+//     res.json({message: 'Get chosen list success!', chosenListId: response.chosenList});
+// })
+
+// // GET /myaccount/:userId
+// router.get('/myaccount/:userId', async (req, res) => {
+//     console.log('GET /myaccount/:userId ', req.params.userId);
+
+//     const response = await User.findById(req.params.userId);
+//     res.json({message: 'Get account info success!', user: response});
+    
+//     // console.log(response);
+// })
 
 module.exports = router;

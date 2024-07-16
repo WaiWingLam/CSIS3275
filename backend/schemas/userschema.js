@@ -2,17 +2,15 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 // Define user
-
 const userSchema = new mongoose.Schema({
-    name: { type: String, required: true},
-    email: { type: String, required: true},
-    password: { type: String, required: true },
-    credit: { type: Number, require: true}
-
-  });
+  name: { type: String, required: true},
+  email: { type: String, required: true},
+  password: { type: String, required: true },
+  credit: { type: Number, require: true},
+  chosenList: { type: [String], default: [] }
+});
 
 // Login
-
 userSchema.statics.authenticate = async function(email, password) {
   try {
     const user = await this.findOne({ email: email});

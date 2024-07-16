@@ -3,13 +3,14 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
+
     const [email, setOnChangeEmail] = useState(``);
     const [password, setOnChangePassword] = useState(``);
 
-    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    const userId = localStorage.getItem('userId')
     const msg = document.getElementById('wrongmsg')
 
-    if(isLoggedIn) {
+    if(userId) {
         window.location = '/myaccount'
     }
 
@@ -19,18 +20,20 @@ const Login = () => {
 
         try{
             const response = await axios.post('http://localhost:5000/api/login', loginData)
-            console.log(response.data.user);
-            if(response.data.user) {
-            localStorage.setItem('loggedIn', true);
-            localStorage.setItem('userInfo', JSON.stringify(response.data.user));
-            window.location = '/myaccount';
+            // console.log('/login: ', response.data.userId);
+
+            if(response.data.userId) { //check if logged in
+                console.log(response.data)
+                localStorage.setItem('userId', response.data.userId);
+                localStorage.setItem('userEmail', response.data.userEmail);
+                window.location = '/myaccount';
             } else {
+                localStorage.clear(); // prevent bugs
                 msg.innerHTML='Wrong e-mail or password, please try again!'
             }
         } catch(error) {
-            console.error('Login error:', error);
+            console.error('Login error: ', error);
         }
-
     }
 
     return(

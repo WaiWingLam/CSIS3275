@@ -27,4 +27,21 @@ router.post('/postskills', (req, res) => {
     res.send('New skill posted!');
 })
 
+// GET /learnskills
+router.get('/learnskills', (req, res) => {
+    Skill.find()
+    .then((skills) => res.json(skills))
+    .catch((error) => res.status(400).json('Error: ', error))
+})
+
+// PUT /deal/:key/:deal
+
+router.put('/deal/:skillId/:deal', async (req, res) => {
+    console.log('PUT /deal/:skillId/:deal is called', req.params.skillId, req.params.deal)
+    await Skill.findByIdAndUpdate(req.params.skillId,
+        { $set: { 'deal' : req.params.deal }}
+    )
+    res.json('Paired up successfully!')
+})
+
 module.exports = router;

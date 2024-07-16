@@ -9,7 +9,9 @@ const skillSchema = new mongoose.Schema({
     teachLv: { type: String },
     location: { type: String },
     postDate: { type: Date },
-    description: { type: String }
+    description: { type: String },
+    pplChosen: { type: [String], default: [] },
+    deal: { type: String }
 });
 
 module.exports = mongoose.model('Skill', skillSchema);
