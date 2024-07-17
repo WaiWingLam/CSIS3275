@@ -13,10 +13,12 @@ const userSchema = new mongoose.Schema({
 // Login
 userSchema.statics.authenticate = async function(email, password) {
   try {
+
     const user = await this.findOne({ email: email});
     if(!user) {
       return res.status(404).json({message: 'No such user'})
     }
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if(!isPasswordValid) {
       return res.status(401).json({message: 'Wrong password'})
@@ -25,7 +27,7 @@ userSchema.statics.authenticate = async function(email, password) {
     return user;
 
   } catch (error) {
-      return res.json({message: 'Some error'})
+    return res.json({message: 'Some error'})
   }
 };
 

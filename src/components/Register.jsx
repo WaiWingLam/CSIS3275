@@ -15,8 +15,14 @@ const Register = () => {
             email: email, 
             password: password 
         };
-        await axios.post('http://localhost:5000/api/register', registerData)
-        window.location = '/login';
+        const response = await axios.post('http://localhost:5000/api/register', registerData)
+        
+        if(response.data.check) {
+            window.location = '/login';
+        } else {
+            alert('Email has been used!')
+        }
+
     }
 
     return (

@@ -54,10 +54,16 @@ router.get('/myaccount/:userId', async (req, res) => {
 })
 
 // POST /register
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
     console.log('POST register is called')
     console.log(req.body);
-    if(req.body.name && req.body.email && req.body.password) {
+
+    // Do unique email name checking here
+    const response = await User.find(
+        { email : req.body.email }
+    )
+
+    if(response.length == 0) {
         const newUser = {
             email: req.body.email,
             name: req.body.name,
@@ -66,8 +72,10 @@ router.post('/register', (req, res) => {
         };
         User.create(newUser);
         console.log('User created');
-        res.send('Registeration success!');
-    } 
+        res.json({message: 'Registeration success!', check: true});
+    } else {
+        res.json({message: 'Email has been used', check: false})
+    }
 })
 
 // PUT /reducecredit
@@ -80,36 +88,17 @@ router.put('/reducecredit', async (req, res) => {
     )
 })
 
-// PUT /pickskil/:postemail/:skillId/:pplChosen
-router.put('/pickskill/:postEmail/:skillId/:pplChosen', async (req, res) => {
-    console.log('/pickskill/:postEmail/:skillId/:pplChosen', req.params.postEmail, req.params.skillId, req.params.pplChosen);
+// PUT /pickskil/:skillId/:userEmail
+router.put('/pickskill/:skillId/:userEmail', async (req, res) => {
+    console.log('/pickskill/:skillId/:userEmail', req.params.skillId, req.params.userEmail);
     await User.updateOne(
-        { email: req.params.postEmail },
+        { email: req.params.userEmail },
         { $push: { 'chosenList': req.params.skillId }}
     )
     await Skill.findByIdAndUpdate(req.params.skillId, 
-        { $push: { 'pplChosen': req.params.pplChosen}})
+        { $push: { 'pplChosen': req.params.userEmail}})
 
     res.json('You have picked up a new skill!')
 })
-
-// GET /chosenList/:userId
-// router.get('/chosenList/:userId', async (req, res) => {
-//     console.log('GET /chosenList/:userId', req.params.userId);
-
-//     const response = await User.findById(req.params.userId);
-//     console.log('res', response.chosenList);
-//     res.json({message: 'Get chosen list success!', chosenListId: response.chosenList});
-// })
-
-// // GET /myaccount/:userId
-// router.get('/myaccount/:userId', async (req, res) => {
-//     console.log('GET /myaccount/:userId ', req.params.userId);
-
-//     const response = await User.findById(req.params.userId);
-//     res.json({message: 'Get account info success!', user: response});
-    
-//     // console.log(response);
-// })
 
 module.exports = router;

@@ -39,7 +39,9 @@ router.get('/learnskills', (req, res) => {
 router.put('/deal/:skillId/:deal', async (req, res) => {
     console.log('PUT /deal/:skillId/:deal is called', req.params.skillId, req.params.deal)
     await Skill.findByIdAndUpdate(req.params.skillId,
-        { $set: { 'deal' : req.params.deal }}
+        { $set: { 'deal' : req.params.deal,
+                    'caseDone' : true
+        }}
     )
     res.json('Paired up successfully!')
 })

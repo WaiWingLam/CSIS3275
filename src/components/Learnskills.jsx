@@ -12,19 +12,27 @@ const LearnList = (props) => (
         <p><b>Preferred locations: </b>{props.location}</p>
         <p><b>Post date: </b>{props.postDate}</p>
         <p><b>Description: </b>{props.description}</p>
-        <button onClick = {() => {props.chooseSkill(props.postEmail, props.skillId, props.userEmail)}}>Pick me!</button>
+        <button onClick = {() => {props.chooseSkill(props.postEmail, props.pplChosen, props.skillId, props.userEmail)}}>Pick me!</button>
         <hr />
     </div>
 );
 
-const chooseSkill = async (postEmail, skillId, userEmail) => {
-    const response = await axios.put(`http://localhost:5000/api/pickskill/${postEmail}/${skillId}/${userEmail}`);
+const chooseSkill = async (postEmail, pplChosen, skillId, userEmail) => {
 
-    console.log(postEmail,skillId,userEmail)
+    const pplChosenArray = pplChosen.split(', ')
+
+    if(postEmail === userEmail) { // check if the skill is posted by user
+        alert('Please do not pick the skill you post!')
+    } else if(pplChosenArray.includes(userEmail)) { // check if the user already picked up the same skill
+        alert('Please do not repeatly pick the same post!')
+    } else {
+        const response = await axios.put(`http://localhost:5000/api/pickskill/${skillId}/${userEmail}`);
+
+        // console.log(skillId,userEmail)
+        // console.log(response.data)
     
-    console.log(response.data)
-
-    // window.location = '/myaccount'
+        window.location = '/myaccount'
+    }
 }
 
 const Learnskills = () => {
@@ -32,18 +40,20 @@ const Learnskills = () => {
     const [user, setUser] = useState([]);
     const [learnList, setLearnList] = useState([]);
 
-    // Get back userId
+    // Get back userId and email
     const userId = localStorage.getItem('userId')
     const userEmail = localStorage.getItem('userEmail')
-    console.log('/myaccount: ', userId, userEmail)
+    // console.log('/learnskills: ', userId, userEmail)
 
+    if(userId) { // check if logged in
     // Use userId to get user
-    // useEffect(() => {
-    //     axios.get(`http://localhost:5000/api/myaccount/${userId}`)
-    //     .then((response) => {
-    //         setUser(response.data.user)
-    //     })
-    // }, []);
+        useEffect(() => {
+            axios.get(`http://localhost:5000/api/myaccount/${userId}`)
+            .then((response) => {
+                setUser(response.data.info.user)
+            })
+        }, []);
+    }
 
     // Get whole learn list
     useEffect(() => {
@@ -56,12 +66,17 @@ const Learnskills = () => {
         })
     }, []);
 
+    // only show skilled not yet paired
+    const incompleteList = learnList.filter(skill => skill.caseDone === false)
+
+    // console.log('Filtered',incompleteList)
+
     if(userId) { // logged in
         return(
             <div>
                 <h1>People are looking for: </h1>
                 <div>
-                    {learnList.map((learnRecord) => (
+                    {incompleteList.map((learnRecord) => (
                         <LearnList 
                             key = {learnRecord._id}
                             userEmail = {userEmail}
@@ -76,6 +91,7 @@ const Learnskills = () => {
                             postDate = {learnRecord.postDate}
                             description = {learnRecord.description}
                             chooseSkill = {chooseSkill}
+                            pplChosen = {learnRecord.pplChosen.join(', ')}
                         />
                     ))}
                 </div>                

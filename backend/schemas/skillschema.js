@@ -11,7 +11,8 @@ const skillSchema = new mongoose.Schema({
     postDate: { type: Date },
     description: { type: String },
     pplChosen: { type: [String], default: [] },
-    deal: { type: String }
+    deal: { type: String },
+    caseDone: { type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Skill', skillSchema);

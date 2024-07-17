@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const PostList = (props) => {
+const IncompletePostList = (props) => {
     const [deal, setOnChangeDeal] = useState(``)
     return(
     <div>
@@ -25,7 +25,38 @@ const PostList = (props) => {
     );
 };
 
-const ChosenList = (props) => (
+const CompletePostList = (props) => {
+    return(
+    <div>
+    <p><b>Skill want to learn: </b>{props.learn}</p>
+    <p><b>Learning skill level: </b>{props.learnLv}</p>
+    <p><b>Skill to teach: </b>{props.teach}</p>
+    <p><b>Teaching skill level: </b>{props.teachLv}</p>
+    <p><b>Preferred locations: </b>{props.location}</p>
+    <p><b>Post date: </b>{props.postDate}</p>
+    <p><b>Description: </b>{props.description}</p>
+    <p><b>People you paired up: </b>{props.deal}</p>
+    <hr />
+    </div>
+    );
+};
+
+const IncompleteChosenList = (props) => (
+    <div>
+    <p><b>Skill want to learn: </b>{props.learn}</p>
+    <p><b>Learning skill level: </b>{props.learnLv}</p>
+    <p><b>Skill to teach: </b>{props.teach}</p>
+    <p><b>Teaching skill level: </b>{props.teachLv}</p>
+    <p><b>Post user: </b>{props.postName}</p>
+    <p><b>E-mail: </b>{props.postEmail}</p>
+    <p><b>Preferred locations: </b>{props.location}</p>
+    <p><b>Post date: </b>{props.postDate}</p>
+    <p><b>Description: </b>{props.description}</p>
+    <hr />
+</div>
+);
+
+const CompleteChosenList = (props) => (
     <div>
     <p><b>Skill want to learn: </b>{props.learn}</p>
     <p><b>Learning skill level: </b>{props.learnLv}</p>
@@ -46,13 +77,14 @@ const handleDeal = async (e) => {
     const skillId = e.target.skillId.value
     const pplChosen = e.target.list.value
     const pplChosenArray = pplChosen.split(', ')
-    console.log(deal, skillId)
+    // console.log(deal, skillId)
     // console.log(pplChosenArray)
 
     if(pplChosenArray.includes(deal)) { // if the name matches
         const response = await axios.put(`http://localhost:5000/api/deal/${skillId}/${deal}`)
-
-        console.log(response.data)
+        
+        window.location = '/myaccount'
+        // console.log(response.data)
     } else { // not match, pop up an alert window
         alert('Wrong name input! Please check again!')
     }
@@ -68,41 +100,37 @@ const Myaccount = () => {
     // Get back userId and email
     const userId = localStorage.getItem('userId')
     const userEmail = localStorage.getItem('userEmail')
-    // console.log('/myaccount: ', userId)
+    // console.log('/myaccount: ', userId, userEm)
 
-    useEffect(() => {
-        // Use userId to get user data
-        axios.get(`http://localhost:5000/api/myaccount/${userId}`)
-        .then((response) => {
-            const { user, postList, chosenList } = response.data.info;
-            setUser(user);
-            setPostList(postList);
-            setChosenList(chosenList);
-        })
+    if(userId) { // check if logged in
+        useEffect(() => {
+            // Use userId to get user data
+            axios.get(`http://localhost:5000/api/myaccount/${userId}`)
+            .then((response) => {
+                const { user, postList, chosenList } = response.data.info;
+                setUser(user);
+                setPostList(postList);
+                setChosenList(chosenList);
+            })
+        }, []);
+    }
 
-        // setUser(response.user);;
-        // setChosenList(response.chosenList);
+    // console.log('postList:', postList)
+    // console.log('chosenList', chosenList)
 
-        // .then(setChosenListId(user.chosenList))
+    // split the skill cases into 2 jsons: done and on progress here
 
-        // Use userId to get the list he chosen
-        // axios.get(`http://localhost:5000/api/chosenList/${userId}`)
-        // .then((response) => {
-        //     setChosenListId(response.data.chosenListId)
-        // })
-        
-        // Get the skill details from the chosenList
+    // show the skills you have chosen and not yet paired
+    const incompleteChosenList = chosenList.filter(skill => skill.caseDone === false)
 
-        // axios.get('http://localhost:5000/api/chosenList/item',)
-        // .then((response) => {
-        //     console.log('it reaches')
-        //     // setChosenList(response.data.chosenList)
-        // })
-    }, []);
+    // show the skills you have chosen and being picked up
+    const completeChosenList = chosenList.filter(skill => skill.caseDone === true).filter(skill => skill.deal === userEmail)
 
-    console.log('postList:', postList)
-    console.log('chosenList', chosenList)
-    
+    // show the skills posted by user and paired up
+    const completeList = postList.filter(skill => skill.caseDone === true)
+
+    // show the skills posted by user and paired up
+    const incompleteList = postList.filter(skill => skill.caseDone === false)
 
     const handleLogout = async () => {
         try {
@@ -125,10 +153,11 @@ const Myaccount = () => {
                 <p></p>
                 <button onClick={handleLogout}>Logout</button>
                 <hr />
-                <h1>Skills you post:</h1>
+
+                <h1>Skills you post and waiting for pair up:</h1>
                 <div>
-                    {postList.map((postRecord) => (
-                        <PostList
+                    {incompleteList.map((postRecord) => (
+                        <IncompletePostList
                         skillId = {postRecord._id}
                         learn = {postRecord.learn}
                         learnLv = {postRecord.learnLv}
@@ -141,11 +170,52 @@ const Myaccount = () => {
                         /> 
                     ))}
                 </div>
+
                 <hr />
+
+                <h1>Skills you post finished for pair up:</h1>
+                <div>
+                    {completeList.map((postRecord) => (
+                        <CompletePostList
+                        skillId = {postRecord._id}
+                        learn = {postRecord.learn}
+                        learnLv = {postRecord.learnLv}
+                        teach = {postRecord.teach}
+                        teachLv = {postRecord.teachLv}
+                        location = {postRecord.location}
+                        postDate = {postRecord.postDate}
+                        description = {postRecord.description}
+                        deal = {postRecord.deal}
+                        /> 
+                    ))}
+                </div>
+
+                <hr />
+
+                <h1>Skills you have chosen and being paired up,</h1>
+                <h1>please contact your partner as soon as possible:</h1>
+                <div>
+                    {completeChosenList.map((postRecord) => (
+                        <CompleteChosenList
+                        skillId = {postRecord._id}
+                        learn = {postRecord.learn}
+                        learnLv = {postRecord.learnLv}
+                        teach = {postRecord.teach}
+                        teachLv = {postRecord.teachLv}
+                        location = {postRecord.location}
+                        postDate = {postRecord.postDate}
+                        description = {postRecord.description}
+                        deal = {postRecord.deal}
+                        /> 
+                    ))}
+                </div>
+                
+                <hr />
+
                 <h1>Skills you have chosen and waiting for response:</h1>
                 <div>
-                    {chosenList.map((chosenRecord) => (
-                        <ChosenList
+                    {incompleteChosenList.map((chosenRecord) => (
+                        <IncompleteChosenList
                             key = {chosenRecord._id}
                             skillId = {chosenRecord._id}
                             postName = {chosenRecord.postName}

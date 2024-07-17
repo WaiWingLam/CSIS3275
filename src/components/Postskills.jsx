@@ -11,17 +11,20 @@ const Postskills = () => {
     const [location, setOnChangeLocation] = useState(``);
     const [description, setOnChangeDescription] = useState(``);
 
-    // Get back userId
+    // Get back userId and email
     const userId = localStorage.getItem('userId')
-    console.log('/myaccount: ', userId)
+    const userEmail = localStorage.getItem('userEmail')
+    // console.log('/learnskills: ', userId, userEmail)
 
+    if(userId) { // check if logged in
     // Use userId to get user
-    useEffect(() => {
-        axios.get(`http://localhost:5000/api/myaccount/${userId}`)
-        .then((response) => {
-            setUser(response.data.info.user)
-        })
-    }, []);
+        useEffect(() => {
+            axios.get(`http://localhost:5000/api/myaccount/${userId}`)
+            .then((response) => {
+                setUser(response.data.info.user)
+            })
+        }, []);
+    }
 
     const handlePostSkill = async (e) => {
         e.preventDefault();
@@ -45,7 +48,7 @@ const Postskills = () => {
         await axios.post('http://localhost:5000/api/postskills', newSkill)
         await axios.put('http://localhost:5000/api/reducecredit', creditUpdate)
 
-        // window.location = '/learnskills';
+        window.location = '/learnskills';
     }
 
     if(userId) {
