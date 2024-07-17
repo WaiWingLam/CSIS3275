@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
 
 // GET /myaccount/:userId
 router.get('/myaccount/:userId', async (req, res) => {
-    console.log('GET /myaccount/:userId ', req.params.userId);
+    // console.log('GET /myaccount/:userId ', req.params.userId);
 
     const user = await User.findById(req.params.userId);
 
@@ -40,7 +40,7 @@ router.get('/myaccount/:userId', async (req, res) => {
     const chosenList = await Skill.find(
         { _id: { $in: objectIds } }
     )
-    console.log(chosenList);
+    // console.log(chosenList);
 
     const response = {
         user: user,
