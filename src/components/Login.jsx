@@ -32,28 +32,25 @@ const Login = () => {
         }
     }
 
-    if(userId) {
-        window.location = '/myaccount'
-    } else {
     return(
     <div>
         <h1>Login:</h1>
+        <div className='login'>
         <form onSubmit={tryLogin}>
-            <b>E-mail: </b>
+            E-mail:
             <input type="text" id='email' required value={email} onChange={(e) => setOnChangeEmail(e.target.value)} />
-            <p></p>
-            <b>Password: </b>
+            Password:
             <input type="password" id='password' required value={password} onChange={(e) => setOnChangePassword(e.target.value)} />
             <p></p>
             <input type="submit" value="Login" />
         </form>
+        </div>
         <p></p>
         <div id='wrongmsg'></div>
         <p></p>
         <div><NavLink to ="/register">Register</NavLink></div>
     </div>
     )
-    }
 };
 
 export default Login;

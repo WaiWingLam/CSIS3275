@@ -58,18 +58,18 @@ const Postskills = () => {
                     <h1>Post a skill:</h1>
                     <div className='register'>
                     <form onSubmit={handlePostSkill}>
-                    <div className='item'>Skill you look for:</div>
-                    <div className='entry'><input type='text' id='learn' required value={learn} onChange={(e) => setOnChangeLearn(e.target.value)} /></div>
-                    <div className='item'>The skill level you want to learn:</div>
-                    <div className='entry'><input type='text' id='learnLv' required value={learnLv} onChange={(e) => setOnChangeLearnLv(e.target.value)} /></div>
-                    <div className='item'>Skill you can teach:</div>
-                    <div className='entry'><input type='text' id='teach' required value={teach} onChange={(e) => setOnChangeTeach(e.target.value)} /></div>
-                    <div className='item'>The skill level you can teach:</div>
-                    <div className='entry'><input type='text' id='teachLv' required value={teachLv} onChange={(e) => setOnChangeTeachLv(e.target.value)} /></div>
-                    <div className='item'>Your available location:</div>
-                    <div className='entry'><input type='text' id='location' required value={location} onChange={(e) => setOnChangeLocation(e.target.value)} /></div>
-                    <div className='item'>Tell us more about you:</div>
-                    <div className='entry'><textarea id='description' value={description} onChange={(e) => setOnChangeDescription(e.target.value)}/></div>
+                    Skill you look for:
+                    <input type='text' id='learn' required value={learn} onChange={(e) => setOnChangeLearn(e.target.value)} />
+                    The skill level you want to learn:
+                    <input type='text' id='learnLv' required value={learnLv} onChange={(e) => setOnChangeLearnLv(e.target.value)} />
+                    Skill you can teach:
+                    <input type='text' id='teach' required value={teach} onChange={(e) => setOnChangeTeach(e.target.value)} />
+                    The skill level you can teach:
+                    <input type='text' id='teachLv' required value={teachLv} onChange={(e) => setOnChangeTeachLv(e.target.value)} />
+                    Your available location:
+                    <input type='text' id='location' required value={location} onChange={(e) => setOnChangeLocation(e.target.value)} />
+                    Tell us more about you:
+                    <textarea id='description' value={description} onChange={(e) => setOnChangeDescription(e.target.value)}/>
                     <input type='submit' value="Post" />
                 </form>
                 </div>

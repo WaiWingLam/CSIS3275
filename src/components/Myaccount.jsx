@@ -186,11 +186,17 @@ const Myaccount = () => {
             <div>
                 <h1>Hi, {user.name}</h1>
                 <h2>Account details:</h2>
-                <h3>Name: {user.name}</h3>
-                <h3>E-mail: {user.email}</h3>
-                <h3>Credits available: {user.credit}</h3>
-                <p></p>
-                <button onClick={handleLogout}>Logout</button>
+                <div className='accountcontainer'>
+                    <div className='account'>
+                    <div className='key'>Name</div>
+                    <div className='value'>{user.name}</div>
+                    <div className='key'>E-mail</div>
+                    <div className='value'>{user.email}</div>
+                    <div className='key'>Credits available:</div>
+                    <div className='value'>{user.credit}</div>
+                    <div className='btn'><button onClick={handleLogout}>Logout</button></div>
+                    </div>
+                </div>
                 <hr />
 
                 <h1>Skills you post and waiting for pair up:</h1>

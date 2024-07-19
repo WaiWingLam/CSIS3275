@@ -50,12 +50,9 @@ const Home = () => {
         })
     }, []);
 
-    
     return(
         <div>
-            <h1>This is home page. Just for force logout use.</h1>
             <button onClick={handleLogout}>Logout</button>
-            <hr />
             <h1>New skills recently:</h1>
             <div className='skillcontainer'>
                     {learnList.map((learnRecord) => (
