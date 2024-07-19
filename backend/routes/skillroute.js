@@ -34,6 +34,14 @@ router.get('/learnskills', (req, res) => {
     .catch((error) => res.status(400).json('Error: ', error))
 })
 
+// GET /newskills
+router.get('/newskills', (req, res) => {
+    Skill.find().limit(10)
+    .then((skills) => res.json(skills))
+    .catch((error) => res.status(400).json('Error: ', error))
+})
+
+
 // PUT /deal/:key/:deal
 
 router.put('/deal/:skillId/:deal', async (req, res) => {

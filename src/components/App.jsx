@@ -10,6 +10,7 @@ import Menubar from './Menubar';
 import Myaccount from './Myaccount';
 import Postskills from './Postskills';
 import Register from './Register';
+import Admin from './Admin';
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/myaccount" element={<Myaccount />} />
             <Route path="/learnskills" element={<Learnskills />} />
             <Route path="/postskills" element={<Postskills />} />
+            <Route path="/admin" element={<Admin />} />
         </Routes>
     </div>
     );

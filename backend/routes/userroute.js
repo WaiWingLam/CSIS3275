@@ -81,7 +81,7 @@ router.post('/register', async (req, res) => {
 // PUT /reducecredit
 
 router.put('/reducecredit', async (req, res) => {
-    console.log('POST /reduce', req.body);
+    console.log('/PUT /reducecredit', req.body);
     await User.updateOne(
         {email: req.body.email},
         {$set: { 'credit' : req.body.credit -1}}

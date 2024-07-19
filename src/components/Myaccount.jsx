@@ -3,73 +3,113 @@ import axios from 'axios';
 
 const IncompletePostList = (props) => {
     const [deal, setOnChangeDeal] = useState(``)
+    const date = props.postDate.split('T')
     return(
-    <div>
-    <p><b>Skill want to learn: </b>{props.learn}</p>
-    <p><b>Learning skill level: </b>{props.learnLv}</p>
-    <p><b>Skill to teach: </b>{props.teach}</p>
-    <p><b>Teaching skill level: </b>{props.teachLv}</p>
-    <p><b>Preferred locations: </b>{props.location}</p>
-    <p><b>Post date: </b>{props.postDate}</p>
-    <p><b>Description: </b>{props.description}</p>
-    <p><b>People chosed: </b>{props.pplChosen}</p>
-    <p><b>Please input the name you want to pair up:</b></p>
-    <form onSubmit={handleDeal}>
-    <input type='hidden' id='list' value={props.pplChosen}/>
-    <input type='hidden' id='skillId' value={props.skillId}/>
-    <input type='text' id='deal' value={deal} onChange={(e) => setOnChangeDeal(e.target.value)}/>
-    <input type='submit' value='Comfirm' />
-    </form>
-    <hr />
+    <div className='skill'>
+        <div className='key'>Skill want to learn:</div>
+        <div className='value'>{props.learn}</div>
+        <div className='key'>Learning skill level:</div>
+        <div className='value'>{props.learnLv}</div>
+        <div className='key'>Skill to teach:</div>
+        <div className='value'>{props.teach}</div>
+        <div className='key'>Teaching skill level:</div>
+        <div className='value'>{props.teachLv}</div>
+        <div className='key'>Preferred locations:</div>
+        <div className='value'>{props.location}</div>
+        <div className='key'>Post date:</div>
+        <div className='value'>{date[0]}</div>
+        <div className='key'>Description:</div>
+        <div className='value'>{props.description}</div>
+        <div className='key'>People chosed:</div>
+        <div className='value'>{props.pplChosen}</div>
+        <div className='key'>You want to pair with:</div>
+        <div className='value'>
+            <form onSubmit={handleDeal}>
+            <input type='hidden' id='list' value={props.pplChosen}/>
+            <input type='hidden' id='skillId' value={props.skillId}/>
+            <input type='text' id='deal' value={deal} onChange={(e) => setOnChangeDeal(e.target.value)}/>
+            <input type='submit' value='Comfirm' />
+            </form>
+        </div>
     </div>
     );
 };
 
 const CompletePostList = (props) => {
+    const date = props.postDate.split('T')
     return(
-    <div>
-    <p><b>Skill want to learn: </b>{props.learn}</p>
-    <p><b>Learning skill level: </b>{props.learnLv}</p>
-    <p><b>Skill to teach: </b>{props.teach}</p>
-    <p><b>Teaching skill level: </b>{props.teachLv}</p>
-    <p><b>Preferred locations: </b>{props.location}</p>
-    <p><b>Post date: </b>{props.postDate}</p>
-    <p><b>Description: </b>{props.description}</p>
-    <p><b>People you paired up: </b>{props.deal}</p>
-    <hr />
+    <div className='skill'>
+        <div className='key'>Skill want to learn:</div>
+        <div className='value'>{props.learn}</div>
+        <div className='key'>Learning skill level:</div>
+        <div className='value'>{props.learnLv}</div>
+        <div className='key'>Skill to teach:</div>
+        <div className='value'>{props.teach}</div>
+        <div className='key'>Teaching skill level:</div>
+        <div className='value'>{props.teachLv}</div>
+        <div className='key'>Preferred locations:</div>
+        <div className='value'>{props.location}</div>
+        <div className='key'>Post date:</div>
+        <div className='value'>{date[0]}</div>
+        <div className='key'>Description:</div>
+        <div className='value'>{props.description}</div>
+        <div className='key'>Paired up with:</div>
+        <div className='value'>{props.deal}</div>
     </div>
     );
 };
 
-const IncompleteChosenList = (props) => (
-    <div>
-    <p><b>Skill want to learn: </b>{props.learn}</p>
-    <p><b>Learning skill level: </b>{props.learnLv}</p>
-    <p><b>Skill to teach: </b>{props.teach}</p>
-    <p><b>Teaching skill level: </b>{props.teachLv}</p>
-    <p><b>Post user: </b>{props.postName}</p>
-    <p><b>E-mail: </b>{props.postEmail}</p>
-    <p><b>Preferred locations: </b>{props.location}</p>
-    <p><b>Post date: </b>{props.postDate}</p>
-    <p><b>Description: </b>{props.description}</p>
-    <hr />
-</div>
-);
+const IncompleteChosenList = (props) => {
+    const date = props.postDate.split('T')
+    return(
+    <div className='skill'>
+        <div className='key'>Skill want to learn:</div>
+        <div className='value'>{props.learn}</div>
+        <div className='key'>Learning skill level:</div>
+        <div className='value'>{props.learnLv}</div>
+        <div className='key'>Skill to teach:</div>
+        <div className='value'>{props.teach}</div>
+        <div className='key'>Teaching skill level:</div>
+        <div className='value'>{props.teachLv}</div>
+        <div className='key'>Post user:</div>
+        <div className='value'>{props.postName}</div>
+        <div className='key'>E-mail:</div>
+        <div className='value'>{props.postEmail}</div>
+        <div className='key'>Preferred locations:</div>
+        <div className='value'>{props.location}</div>
+        <div className='key'>Post date:</div>
+        <div className='value'>{date[0]}</div>
+        <div className='key'>Description:</div>
+        <div className='value'>{props.description}</div>
+    </div>
+    )
+};
 
-const CompleteChosenList = (props) => (
-    <div>
-    <p><b>Skill want to learn: </b>{props.learn}</p>
-    <p><b>Learning skill level: </b>{props.learnLv}</p>
-    <p><b>Skill to teach: </b>{props.teach}</p>
-    <p><b>Teaching skill level: </b>{props.teachLv}</p>
-    <p><b>Post user: </b>{props.postName}</p>
-    <p><b>E-mail: </b>{props.postEmail}</p>
-    <p><b>Preferred locations: </b>{props.location}</p>
-    <p><b>Post date: </b>{props.postDate}</p>
-    <p><b>Description: </b>{props.description}</p>
-    <hr />
-</div>
-);
+const CompleteChosenList = (props) => {
+    const date = props.postDate.split('T')
+    return(
+    <div className='skill'>
+        <div className='key'>Skill want to learn:</div>
+        <div className='value'>{props.learn}</div>
+        <div className='key'>Learning skill level:</div>
+        <div className='value'>{props.learnLv}</div>
+        <div className='key'>Skill to teach:</div>
+        <div className='value'>{props.teach}</div>
+        <div className='key'>Teaching skill level:</div>
+        <div className='value'>{props.teachLv}</div>
+        <div className='key'>Post user:</div>
+        <div className='value'>{props.postName}</div>
+        <div className='key'>E-mail:</div>
+        <div className='value'>{props.postEmail}</div>
+        <div className='key'>Preferred locations:</div>
+        <div className='value'>{props.location}</div>
+        <div className='key'>Post date:</div>
+        <div className='value'>{date[0]}</div>
+        <div className='key'>Description:</div>
+        <div className='value'>{props.description}</div>
+    </div>
+)
+};
 
 const handleDeal = async (e) => {
     e.preventDefault();
@@ -145,7 +185,6 @@ const Myaccount = () => {
         return(
             <div>
                 <h1>Hi, {user.name}</h1>
-                <h2>This is my account page. You have successfully login. </h2>
                 <h2>Account details:</h2>
                 <h3>Name: {user.name}</h3>
                 <h3>E-mail: {user.email}</h3>
@@ -155,7 +194,7 @@ const Myaccount = () => {
                 <hr />
 
                 <h1>Skills you post and waiting for pair up:</h1>
-                <div>
+                <div className='skillcontainer'>
                     {incompleteList.map((postRecord) => (
                         <IncompletePostList
                         skillId = {postRecord._id}
@@ -174,7 +213,7 @@ const Myaccount = () => {
                 <hr />
 
                 <h1>Skills you post finished for pair up:</h1>
-                <div>
+                <div className='skillcontainer'>
                     {completeList.map((postRecord) => (
                         <CompletePostList
                         skillId = {postRecord._id}
@@ -194,7 +233,7 @@ const Myaccount = () => {
 
                 <h1>Skills you have chosen and being paired up,</h1>
                 <h1>please contact your partner as soon as possible:</h1>
-                <div>
+                <div className='skillcontainer'>
                     {completeChosenList.map((postRecord) => (
                         <CompleteChosenList
                         skillId = {postRecord._id}
@@ -213,7 +252,7 @@ const Myaccount = () => {
                 <hr />
 
                 <h1>Skills you have chosen and waiting for response:</h1>
-                <div>
+                <div className='skillcontainer'>
                     {incompleteChosenList.map((chosenRecord) => (
                         <IncompleteChosenList
                             key = {chosenRecord._id}

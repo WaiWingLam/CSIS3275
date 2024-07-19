@@ -55,30 +55,24 @@ const Postskills = () => {
         if(user.credit > 0) { // logged in + enough balance
             return(
                 <div>
-                    <h1>This is post skills page.</h1>
                     <h1>Post a skill:</h1>
+                    <div className='register'>
                     <form onSubmit={handlePostSkill}>
-                        <b>Skill you look for: </b>
-                        <input type='text' id='learn' required value={learn} onChange={(e) => setOnChangeLearn(e.target.value)} />
-                        <p></p>
-                        <b>The skill level you want to learn: </b>
-                        <input type='text' id='learnLv' required value={learnLv} onChange={(e) => setOnChangeLearnLv(e.target.value)} />
-                        <p></p>
-                        <b>Skill you can teach: </b>
-                        <input type='text' id='teach' required value={teach} onChange={(e) => setOnChangeTeach(e.target.value)} />
-                        <p></p>
-                        <b>The skill level you can teach: </b>
-                        <input type='text' id='teachLv' required value={teachLv} onChange={(e) => setOnChangeTeachLv(e.target.value)} />
-                        <p></p>
-                        <b>Your available location: </b>
-                        <input type='text' id='location' required value={location} onChange={(e) => setOnChangeLocation(e.target.value)} />
-                        <p></p>
-                        <b>Tell us more about you:</b>
-                        <p></p>
-                        <textarea id='description' value={description} onChange={(e) => setOnChangeDescription(e.target.value)}/>
-                        <p></p>
-                        <input type='submit' value="Post" />
+                    <div className='item'>Skill you look for:</div>
+                    <div className='entry'><input type='text' id='learn' required value={learn} onChange={(e) => setOnChangeLearn(e.target.value)} /></div>
+                    <div className='item'>The skill level you want to learn:</div>
+                    <div className='entry'><input type='text' id='learnLv' required value={learnLv} onChange={(e) => setOnChangeLearnLv(e.target.value)} /></div>
+                    <div className='item'>Skill you can teach:</div>
+                    <div className='entry'><input type='text' id='teach' required value={teach} onChange={(e) => setOnChangeTeach(e.target.value)} /></div>
+                    <div className='item'>The skill level you can teach:</div>
+                    <div className='entry'><input type='text' id='teachLv' required value={teachLv} onChange={(e) => setOnChangeTeachLv(e.target.value)} /></div>
+                    <div className='item'>Your available location:</div>
+                    <div className='entry'><input type='text' id='location' required value={location} onChange={(e) => setOnChangeLocation(e.target.value)} /></div>
+                    <div className='item'>Tell us more about you:</div>
+                    <div className='entry'><textarea id='description' value={description} onChange={(e) => setOnChangeDescription(e.target.value)}/></div>
+                    <input type='submit' value="Post" />
                 </form>
+                </div>
             </div>
             );
         } else { // logged in but 0 balance

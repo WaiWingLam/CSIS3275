@@ -20,9 +20,11 @@ mongoose.connect(uri)
 // import routes
 const userRoute = require('./routes/userroute');
 const skillRoute = require('./routes/skillroute');
+const adminRoute = require('./routes/adminroute');
 
 app.use('/api', userRoute);
 app.use('/api', skillRoute);
+app.use('/admin', adminRoute);
 
 app.listen(port, () => {
     console.log(`Database is running on port: ${port}`);

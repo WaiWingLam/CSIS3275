@@ -10,10 +10,6 @@ const Login = () => {
     const userId = localStorage.getItem('userId')
     const msg = document.getElementById('wrongmsg')
 
-    if(userId) {
-        window.location = '/myaccount'
-    }
-
     const tryLogin = async (e) => {
         e.preventDefault();
         const loginData = {email: email, password: password };
@@ -36,6 +32,9 @@ const Login = () => {
         }
     }
 
+    if(userId) {
+        window.location = '/myaccount'
+    } else {
     return(
     <div>
         <h1>Login:</h1>
@@ -54,6 +53,7 @@ const Login = () => {
         <div><NavLink to ="/register">Register</NavLink></div>
     </div>
     )
+    }
 };
 
 export default Login;

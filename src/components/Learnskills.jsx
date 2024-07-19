@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const LearnList = (props) => (
-    <div>
-        <p><b>Skill want to learn: </b>{props.learn}</p>
-        <p><b>Learning skill level: </b>{props.learnLv}</p>
-        <p><b>Skill to teach: </b>{props.teach}</p>
-        <p><b>Teaching skill level: </b>{props.teachLv}</p>
-        <p><b>Post user: </b>{props.postName}</p>
-        <p><b>E-mail: </b>{props.postEmail}</p>
-        <p><b>Preferred locations: </b>{props.location}</p>
-        <p><b>Post date: </b>{props.postDate}</p>
-        <p><b>Description: </b>{props.description}</p>
-        <button onClick = {() => {props.chooseSkill(props.postEmail, props.pplChosen, props.skillId, props.userEmail)}}>Pick me!</button>
-        <hr />
+const LearnList = (props) => {
+    const date = props.postDate.split('T')
+    return(
+    <div className='skill'>
+        <div className='key'>Skill want to learn:</div>
+        <div className='value'>{props.learn}</div>
+        <div className='key'>Learning skill level:</div>
+        <div className='value'>{props.learnLv}</div>
+        <div className='key'>Skill to teach:</div>
+        <div className='value'>{props.teach}</div>
+        <div className='key'>Teaching skill level:</div>
+        <div className='value'>{props.teachLv}</div>
+        <div className='key'>Post user:</div>
+        <div className='value'>{props.postName}</div>
+        <div className='key'>E-mail:</div>
+        <div className='value'>{props.postEmail}</div>
+        <div className='key'>Preferred locations:</div>
+        <div className='value'>{props.location}</div>
+        <div className='key'>Post date:</div>
+        <div className='value'>{date[0]}</div>
+        <div className='key'>Description:</div>
+        <div className='value'>{props.description}</div>
+        <div className='btn'><button onClick = {() => {props.chooseSkill(props.postEmail, props.pplChosen, props.skillId, props.userEmail)}}>Pick me!</button></div>
     </div>
-);
+    )
+};
 
 const chooseSkill = async (postEmail, pplChosen, skillId, userEmail) => {
 
@@ -75,7 +86,7 @@ const Learnskills = () => {
         return(
             <div>
                 <h1>People are looking for: </h1>
-                <div>
+                <div className='skillcontainer'>
                     {incompleteList.map((learnRecord) => (
                         <LearnList 
                             key = {learnRecord._id}
