@@ -57,7 +57,7 @@ b {
   width: 70%;
 }
 
-.register input[type=text], select, textarea {
+.register input[type=text], input[type=password], input[type=email], select, textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -168,7 +168,7 @@ b {
 }
 
 .value {
-  width: 55%;
+  width: 50%;
   padding: 15px;
 }
 

@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true},
   password: { type: String, required: true },
   credit: { type: Number, require: true},
-  chosenList: { type: [String], default: [] }
+  chosenList: { type: [String], default: [] },
+  rating: { type: [Number], default: [] }
 });
 
 // Login

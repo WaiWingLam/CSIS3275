@@ -19,10 +19,12 @@ const Menubar = () => {
             <header>
             <ul className="menu">
                 <li><NavLink to ="/">Home</NavLink></li>
+                {/* <li>'About Us'</li>
+                <li>'Rates'</li> */}
                 <li><NavLink to ="/myaccount">My account</NavLink></li>
                 <li><NavLink to ="/learnskills">Look for a skill</NavLink></li>
                 <li><NavLink to ="/postskills">Post a skill</NavLink></li>
-                <li onClick={handleLogout}><b>Logout</b></li>
+                {/* <li onClick={handleLogout}><b>Logout</b></li> */}
             </ul>
             </header>
         )

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../schemas/userschema');
 const Skill = require('../schemas/skillschema');
 
 // Do CRUD there
@@ -43,7 +44,6 @@ router.get('/newskills', (req, res) => {
 
 
 // PUT /deal/:key/:deal
-
 router.put('/deal/:skillId/:deal', async (req, res) => {
     console.log('PUT /deal/:skillId/:deal is called', req.params.skillId, req.params.deal)
     await Skill.findByIdAndUpdate(req.params.skillId,
@@ -52,6 +52,34 @@ router.put('/deal/:skillId/:deal', async (req, res) => {
         }}
     )
     res.json('Paired up successfully!')
+})
+
+// PUT /rate/learner/:email/:id/:ratefromlearner
+router.put('/rate/learner/:email/:skillId/:ratefromlearner', async (req, res) => {
+
+    console.log('From learner',req.params.email, req.params.skillId, req.params.ratefromlearner)
+
+    await Skill.findByIdAndUpdate(req.params.skillId,
+        { $set: {'rateFromLearner' : req.params.ratefromlearner }}
+    )
+
+    await User.updateOne(
+        { email: req.params.email},
+        { $push: {'rating' : req.params.ratefromlearner }}
+    )
+})
+
+// put /rate/teacher/:email/:id/:ratefromteacher
+router.put('/rate/teacher/:email/:skillId/:ratefromteacher', async (req, res) => {
+    console.log('From teacher',req.params.email, req.params.skillId, req.params.ratefromteacher)
+
+    await Skill.findByIdAndUpdate(req.params.skillId,
+        { $set: {'rateFromTeacher' : req.params.ratefromteacher }}
+    )
+    await User.updateOne(
+        { email: req.params.email},
+        { $push: {'rating' : req.params.ratefromteacher }}
+    )
 })
 
 module.exports = router;

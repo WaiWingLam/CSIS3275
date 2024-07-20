@@ -10,7 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const port = 5000;
-const uri = 'mongodb://localhost:27017/CSIS3275'
+// const uri = 'mongodb://localhost:27017/CSIS3275'
+
+const uri = 'mongodb+srv://CSIS3275:2024summer@csis3275.egalcdu.mongodb.net/'
 
 // Set-up database
 mongoose.connect(uri)

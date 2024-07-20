@@ -12,7 +12,9 @@ const skillSchema = new mongoose.Schema({
     description: { type: String },
     pplChosen: { type: [String], default: [] },
     deal: { type: String },
-    caseDone: { type: Boolean, default: false}
+    caseDone: { type: Boolean, default: false},
+    rateFromLearner: { type: Number },
+    rateFromTeacher: { type: Number}
 });
 
 module.exports = mongoose.model('Skill', skillSchema);

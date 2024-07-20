@@ -3,7 +3,58 @@ import axios from 'axios';
 
 const IncompletePostList = (props) => {
     const [deal, setOnChangeDeal] = useState(``)
+    const [ratingList, setRatingList] = useState([]);
     const date = props.postDate.split('T')
+
+    const pplChosenArray = props.pplChosen.split(', ').filter(ppl => ppl !== '')
+
+    console.log('renew',pplChosenArray)
+
+    const pplChosenJson = { ppl: pplChosenArray}
+
+    const calculateRating = (...arr) => {
+
+        let sum = 0;
+        for (let i = 0; i < arr.length; i++) {
+            sum += parseInt(arr[i]);
+        }
+
+        return parseFloat((sum / arr.length)).toFixed(2);
+    }
+
+
+    useEffect(() => {
+
+    if(pplChosenArray.length > 0) {
+        axios.get(`http://localhost:5000/api/getrate`, 
+            { params: pplChosenJson } )
+        .then((response) => {
+            const ratingList = response.data.response;
+            setRatingList(ratingList);
+        })}
+    }, []);
+
+    // console.log(pplChosenArray, ratingList)
+
+    let ratingArray = []
+
+    ratingList.map((rating) =>{
+        if(rating.length == 0) {
+            ratingArray.push('Not yet')
+        } else {
+            ratingArray.push(calculateRating(rating))
+        }})
+
+    // console.log(ratingArray)
+
+    let pplStr = '';
+
+    for (let i = 0; i < pplChosenArray.length; i++) {
+        pplStr += `Email: ${pplChosenArray[i]} <br> Rating: ${ratingArray[i]}<br><br> `
+    }
+
+    // console.log(pplStr)
+
     return(
     <div className='skill'>
         <div className='key'>Skill want to learn:</div>
@@ -21,7 +72,7 @@ const IncompletePostList = (props) => {
         <div className='key'>Description:</div>
         <div className='value'>{props.description}</div>
         <div className='key'>People chosed:</div>
-        <div className='value'>{props.pplChosen}</div>
+        <div className='value' dangerouslySetInnerHTML={{ __html: pplStr }} />
         <div className='key'>You want to pair with:</div>
         <div className='value'>
             <form onSubmit={handleDeal}>
@@ -37,6 +88,9 @@ const IncompletePostList = (props) => {
 
 const CompletePostList = (props) => {
     const date = props.postDate.split('T')
+    const [score, setOnChangeScore] = useState(``)
+
+    if(props.rate) {
     return(
     <div className='skill'>
         <div className='key'>Skill want to learn:</div>
@@ -55,8 +109,41 @@ const CompletePostList = (props) => {
         <div className='value'>{props.description}</div>
         <div className='key'>Paired up with:</div>
         <div className='value'>{props.deal}</div>
+        <div className='key'>You rated:</div>
+        <div className='value'>{props.rate}</div>
     </div>
     );
+    } else {
+        return(
+            <div className='skill'>
+            <div className='key'>Skill want to learn:</div>
+            <div className='value'>{props.learn}</div>
+            <div className='key'>Learning skill level:</div>
+            <div className='value'>{props.learnLv}</div>
+            <div className='key'>Skill to teach:</div>
+            <div className='value'>{props.teach}</div>
+            <div className='key'>Teaching skill level:</div>
+            <div className='value'>{props.teachLv}</div>
+            <div className='key'>Preferred locations:</div>
+            <div className='value'>{props.location}</div>
+            <div className='key'>Post date:</div>
+            <div className='value'>{date[0]}</div>
+            <div className='key'>Description:</div>
+            <div className='value'>{props.description}</div>
+            <div className='key'>Paired up with:</div>
+            <div className='value'>{props.deal}</div>
+            <div className='key'>Rate your partner (1-5):</div>
+            <div className='value'>
+            <form onSubmit={handleRateFromLearner}>
+            <input type='hidden' id='email' value={props.deal}/>
+            <input type='hidden' id='skillId' value={props.skillId}/>
+            <input type='text' id='score' value={score} onChange={(e) => setOnChangeScore(e.target.value)}/>
+            <input type='submit' value='Comfirm' />
+            </form>
+            </div>
+        </div>
+        )
+    }
 };
 
 const IncompleteChosenList = (props) => {
@@ -87,7 +174,10 @@ const IncompleteChosenList = (props) => {
 
 const CompleteChosenList = (props) => {
     const date = props.postDate.split('T')
-    return(
+    const [score, setOnChangeScore] = useState(``)
+
+    if(props.rate) {
+        return(
     <div className='skill'>
         <div className='key'>Skill want to learn:</div>
         <div className='value'>{props.learn}</div>
@@ -107,8 +197,43 @@ const CompleteChosenList = (props) => {
         <div className='value'>{date[0]}</div>
         <div className='key'>Description:</div>
         <div className='value'>{props.description}</div>
+        <div className='key'>You rated:</div>
+        <div className='value'>{props.rate}</div>
     </div>
-)
+    )
+    } else {
+        return(
+            <div className='skill'>
+            <div className='key'>Skill want to learn:</div>
+            <div className='value'>{props.learn}</div>
+            <div className='key'>Learning skill level:</div>
+            <div className='value'>{props.learnLv}</div>
+            <div className='key'>Skill to teach:</div>
+            <div className='value'>{props.teach}</div>
+            <div className='key'>Teaching skill level:</div>
+            <div className='value'>{props.teachLv}</div>
+            <div className='key'>Post user:</div>
+            <div className='value'>{props.postName}</div>
+            <div className='key'>E-mail:</div>
+            <div className='value'>{props.postEmail}</div>
+            <div className='key'>Preferred locations:</div>
+            <div className='value'>{props.location}</div>
+            <div className='key'>Post date:</div>
+            <div className='value'>{date[0]}</div>
+            <div className='key'>Description:</div>
+            <div className='value'>{props.description}</div>
+            <div className='key'>Rate your partner (1-5):</div>
+            <div className='value'>
+            <form onSubmit={handleRateFromTeacher}>
+            <input type='hidden' id='email' value={props.postEmail}/>
+            <input type='hidden' id='skillId' value={props.skillId}/>
+            <input type='text' id='score' value={score} onChange={(e) => setOnChangeScore(e.target.value)}/>
+            <input type='submit' value='Comfirm' />
+            </form>
+            </div>
+        </div>
+        )
+    }
 };
 
 const handleDeal = async (e) => {
@@ -122,13 +247,43 @@ const handleDeal = async (e) => {
 
     if(pplChosenArray.includes(deal)) { // if the name matches
         const response = await axios.put(`http://localhost:5000/api/deal/${skillId}/${deal}`)
-        
-        window.location = '/myaccount'
+        .then(window.location = '/myaccount')
         // console.log(response.data)
     } else { // not match, pop up an alert window
         alert('Wrong name input! Please check again!')
     }
 }
+
+const handleRateFromLearner = async(e) => {
+    e.preventDefault();
+    const score = parseInt(e.target.score.value);
+    const skillId = e.target.skillId.value;
+    const email = e.target.email.value;
+
+    if(score >= 1 && score <= 5 ) {
+        const response = await axios.put(`http://localhost:5000/api/rate/learner/${email}/${skillId}/${score}`)
+        .then(window.location = '/myaccount')
+    } else {
+        alert('Please rate between 1 - 5 !')
+    }
+}
+
+const handleRateFromTeacher = async(e) => {
+    e.preventDefault();
+    const score = parseInt(e.target.score.value);
+    const skillId = e.target.skillId.value;
+    const email = e.target.email.value;
+
+    if(score >= 1 && score <= 5 ) {
+        const response = await axios.put(`http://localhost:5000/api/rate/teacher/${email}/${skillId}/${score}`)
+        .then(window.location = '/myaccount')
+    } else {
+        alert('Please rate between 1 - 5 !')
+    }
+
+}
+
+
 
 const Myaccount = () => {
 
@@ -154,6 +309,25 @@ const Myaccount = () => {
             })
         }, []);
     }
+
+
+    const calculateRating = (...arr) => {
+
+        let sum = 0;
+        for (let i = 0; i < arr.length; i++) {
+            sum += parseInt(arr[i]);
+        }
+
+        return parseFloat((sum / arr.length)).toFixed(2);
+    }
+
+    let userRating = calculateRating(user.rating);
+
+    if (userRating === 'NaN') {
+        userRating = 'Not yet rated'
+    }
+    
+    // console.log('rate',userRating);
 
     // console.log('postList:', postList)
     // console.log('chosenList', chosenList)
@@ -194,12 +368,14 @@ const Myaccount = () => {
                     <div className='value'>{user.email}</div>
                     <div className='key'>Credits available:</div>
                     <div className='value'>{user.credit}</div>
+                    <div className='key'>Your rating:</div>
+                    <div className='value'>{userRating}</div>
                     <div className='btn'><button onClick={handleLogout}>Logout</button></div>
                     </div>
                 </div>
                 <hr />
 
-                <h1>Skills you post and waiting for pair up:</h1>
+                <h2>Skills you post and waiting for pair up:</h2>
                 <div className='skillcontainer'>
                     {incompleteList.map((postRecord) => (
                         <IncompletePostList
@@ -218,7 +394,7 @@ const Myaccount = () => {
 
                 <hr />
 
-                <h1>Skills you post finished for pair up:</h1>
+                <h2>Skills you post finished for pair up:</h2>
                 <div className='skillcontainer'>
                     {completeList.map((postRecord) => (
                         <CompletePostList
@@ -231,18 +407,21 @@ const Myaccount = () => {
                         postDate = {postRecord.postDate}
                         description = {postRecord.description}
                         deal = {postRecord.deal}
+                        rate = {postRecord.rateFromLearner}
                         /> 
                     ))}
                 </div>
 
                 <hr />
 
-                <h1>Skills you have chosen and being paired up,</h1>
-                <h1>please contact your partner as soon as possible:</h1>
+                <h2>The poster has chosen you!</h2>
+                <h2>Please response as soon as possible:</h2>
                 <div className='skillcontainer'>
                     {completeChosenList.map((postRecord) => (
                         <CompleteChosenList
                         skillId = {postRecord._id}
+                        postName = {postRecord.postName}
+                        postEmail = {postRecord.postEmail}
                         learn = {postRecord.learn}
                         learnLv = {postRecord.learnLv}
                         teach = {postRecord.teach}
@@ -251,13 +430,14 @@ const Myaccount = () => {
                         postDate = {postRecord.postDate}
                         description = {postRecord.description}
                         deal = {postRecord.deal}
+                        rate = {postRecord.rateFromTeacher}
                         /> 
                     ))}
                 </div>
                 
                 <hr />
 
-                <h1>Skills you have chosen and waiting for response:</h1>
+                <h2>Skills you have chosen and waiting for response:</h2>
                 <div className='skillcontainer'>
                     {incompleteChosenList.map((chosenRecord) => (
                         <IncompleteChosenList

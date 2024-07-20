@@ -9,13 +9,14 @@ const Skill = require('../schemas/skillschema');
 // POST /login
 router.post('/login', async (req, res) => {
     const {email, password} = req.body;
-    console.log('POST login is called')
-    console.log(req.body);
+
+    // console.log('POST login is called')
+    // console.log(req.body);
 
     try {
         const user = await User.authenticate(email, password);
 
-        console.log('From POST /login', user);
+        // console.log('From POST /login', user);
 
         res.json({message: 'Login success!', userId: user._id, userEmail:user.email});
     } catch (error) {
@@ -99,6 +100,20 @@ router.put('/pickskill/:skillId/:userEmail', async (req, res) => {
         { $push: { 'pplChosen': req.params.userEmail}})
 
     res.json('You have picked up a new skill!')
+})
+
+// GET getrate
+router.get('/getrate', async (req, res) => {
+
+    // console.log(req.query.ppl)
+
+    const user = await User.find( 
+        {email: { $in: req.query.ppl }}
+    )
+
+    const response = user.map((user) => user.rating)
+    res.json({response})
+
 })
 
 module.exports = router;

@@ -47,8 +47,7 @@ const Postskills = () => {
 
         await axios.post('http://localhost:5000/api/postskills', newSkill)
         await axios.put('http://localhost:5000/api/reducecredit', creditUpdate)
-
-        window.location = '/learnskills';
+        .then(window.location = '/learnskills');
     }
 
     if(userId) {
