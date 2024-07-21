@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import axios from 'axios';
 
 // App components
 import Home from './Home';
@@ -14,6 +13,7 @@ import Admin from './Admin';
 import Addcredits from './Addcredits';
 import Aboutus from './Aboutus';
 import Messenger from './Messenger';
+import UpdateAccount from './Updateaccount';
 
 const App = () => {
 
@@ -26,6 +26,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/myaccount" element={<Myaccount />} />
+            <Route path="/updateaccount" element={<UpdateAccount />} />
             <Route path="/learnskills" element={<Learnskills />} />
             <Route path="/postskills" element={<Postskills />} />
             <Route path="/addcredits" element={<Addcredits />} />

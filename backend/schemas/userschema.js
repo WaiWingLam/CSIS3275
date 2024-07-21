@@ -34,7 +34,9 @@ userSchema.statics.authenticate = async function(email, password) {
 
 // Hash passowrd
 userSchema.pre('save', function(next) {
+
   const user = this;
+
   bcrypt.hash(user.password, 10, function (err, hash) {
     if(err) {
       return next(err);
@@ -43,5 +45,21 @@ userSchema.pre('save', function(next) {
     next();
   })
 })
+
+// Update password, hash again
+userSchema.pre('findOneAndUpdate', async function(next) {
+  
+  const update = this.getUpdate();
+
+  if (update.password) {
+      try {
+          const hashedPassword = await bcrypt.hash(update.password, 10);
+          this.setUpdate({ ...update, password: hashedPassword });
+      } catch (error) {
+          return next(error);
+      }
+  }
+  next();
+});
 
 module.exports = mongoose.model('User', userSchema);

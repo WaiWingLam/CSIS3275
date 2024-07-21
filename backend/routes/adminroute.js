@@ -68,4 +68,10 @@ router.put('/skillupdate/:postemail/:date', async (req, res) => {
     )
 })
 
+// /DELETE /skill/:skillid
+router.delete('/skill/:skillid', async (req, res) => {
+
+    await Skill.findByIdAndDelete(req.params.skillid)
+})
+
 module.exports = router;

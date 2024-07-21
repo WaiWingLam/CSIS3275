@@ -25,7 +25,7 @@ const Login = () => {
                 window.location = '/myaccount';
             } else {
                 localStorage.clear(); // prevent bugs
-                msg.innerHTML='Wrong e-mail or password, please try again!'
+                alert(`Wrong e-mail or password, please try again!`)
             }
         } catch(error) {
             console.error('Login error: ', error);
@@ -45,9 +45,6 @@ const Login = () => {
             <input type="submit" value="Login" />
         </form>
         </div>
-        <p></p>
-        <div id='wrongmsg'></div>
-        <p></p>
         <div><NavLink to ="/register">Register</NavLink></div>
     </div>
     )

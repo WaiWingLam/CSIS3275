@@ -30,14 +30,14 @@ router.post('/postskills', (req, res) => {
 
 // GET /learnskills
 router.get('/learnskills', (req, res) => {
-    Skill.find()
+    Skill.find().sort({ postDate: -1})
     .then((skills) => res.json(skills))
     .catch((error) => res.status(400).json('Error: ', error))
 })
 
 // GET /newskills
 router.get('/newskills', (req, res) => {
-    Skill.find().limit(10)
+    Skill.find().sort({ postDate: -1}).limit(10)
     .then((skills) => res.json(skills))
     .catch((error) => res.status(400).json('Error: ', error))
 })
@@ -80,6 +80,12 @@ router.put('/rate/teacher/:email/:skillId/:ratefromteacher', async (req, res) =>
         { email: req.params.email},
         { $push: {'rating' : req.params.ratefromteacher }}
     )
+})
+
+// /DELETE /skill/:skillid
+router.delete('/skill/:skillid', async (req, res) => {
+
+    await Skill.findByIdAndDelete(req.params.skillid)
 })
 
 module.exports = router;

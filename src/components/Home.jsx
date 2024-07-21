@@ -49,26 +49,64 @@ const Home = () => {
         })
     }, []);
 
+    const boostedList = learnList.filter(skill => skill.boost === true).filter(skill => skill.caseDone === false)
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+    
+    function getRandomUniqueItems(arr) {
+        if (4 >= arr.length) {
+            return arr;
+        }
+        const shuffled = shuffleArray([...arr]);
+        return shuffled.slice(0, 4);
+    }
+    
+    const randomBoostedList = getRandomUniqueItems(boostedList);
+
     return(
         <div>
+            <h1>Featured Suggestions:</h1>
+            <div className='skillcontainer'>
+                {randomBoostedList.map((learnRecord) => (
+                    <LearnList 
+                        key = {learnRecord._id}
+                        skillId = {learnRecord._id}
+                        postName = {learnRecord.postName}
+                        postEmail = {learnRecord.postEmail}
+                        learn = {learnRecord.learn}
+                        learnLv = {learnRecord.learnLv}
+                        teach = {learnRecord.teach}
+                        teachLv = {learnRecord.teachLv}
+                        location = {learnRecord.location}
+                        postDate = {learnRecord.postDate}
+                        description = {learnRecord.description}
+                    />
+                ))}
+            </div>    
             <h1>New skills recently:</h1>
             <div className='skillcontainer'>
-                    {learnList.map((learnRecord) => (
-                        <LearnList 
-                            key = {learnRecord._id}
-                            skillId = {learnRecord._id}
-                            postName = {learnRecord.postName}
-                            postEmail = {learnRecord.postEmail}
-                            learn = {learnRecord.learn}
-                            learnLv = {learnRecord.learnLv}
-                            teach = {learnRecord.teach}
-                            teachLv = {learnRecord.teachLv}
-                            location = {learnRecord.location}
-                            postDate = {learnRecord.postDate}
-                            description = {learnRecord.description}
-                        />
-                    ))}
-                </div>             
+                {learnList.map((learnRecord) => (
+                    <LearnList 
+                        key = {learnRecord._id}
+                        skillId = {learnRecord._id}
+                        postName = {learnRecord.postName}
+                        postEmail = {learnRecord.postEmail}
+                        learn = {learnRecord.learn}
+                        learnLv = {learnRecord.learnLv}
+                        teach = {learnRecord.teach}
+                        teachLv = {learnRecord.teachLv}
+                        location = {learnRecord.location}
+                        postDate = {learnRecord.postDate}
+                        description = {learnRecord.description}
+                    />
+                ))}
+            </div>             
         </div>
     )
 }

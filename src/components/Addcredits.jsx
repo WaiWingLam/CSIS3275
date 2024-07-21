@@ -10,9 +10,7 @@ const Addcredits = () => {
         return (
             <div className="align-items-center col-sm-6">
                 <h4 className="mb-3">Credit Purchase</h4>
-    
                 <div className="my-3">
-
             <div className="form-check">
             <input id="credit1" name="numcredit" type="radio" className="form-check-input" required />
             <label className="form-check-label" >1 credit / $10 CAD</label>

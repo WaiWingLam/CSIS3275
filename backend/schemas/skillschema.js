@@ -14,7 +14,8 @@ const skillSchema = new mongoose.Schema({
     deal: { type: String },
     caseDone: { type: Boolean, default: false},
     rateFromLearner: { type: Number },
-    rateFromTeacher: { type: Number}
+    rateFromTeacher: { type: Number},
+    boost: { type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Skill', skillSchema);

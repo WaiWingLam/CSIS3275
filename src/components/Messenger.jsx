@@ -8,7 +8,7 @@ const Messenger = () => {
     if(userId) {
         return(
             <div class="py-5 text-center">
-            <h2>Messegner</h2>
+            <h2>Messenger</h2>
             <p class="lead">Please remind the messages are not encrypted. DO NOT send any personal information.</p>
         </div>    
         )

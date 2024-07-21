@@ -69,7 +69,10 @@ const Postskills = () => {
                     <input type='text' id='location' required value={location} onChange={(e) => setOnChangeLocation(e.target.value)} />
                     Tell us more about you:
                     <textarea id='description' vcalue={description} onChange={(e) => setOnChangeDescription(e.target.value)}/>
-                    <p></p>
+                    <br/> <br />
+                    <h3>Reminder:</h3>
+                    The posts can not be modified once published. You can only delete and post again. Please double check before submission. 
+                    <br/> <br />
                     <input type='submit' className="w-100 btn btn-primary btn-lg" value="Post" />
                 </form>
                 </div>

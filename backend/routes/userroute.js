@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../schemas/userschema');
 const Skill = require('../schemas/skillschema');
+const { Await } = require('react-router-dom');
 
 // Do CRUD there
 
@@ -56,8 +57,8 @@ router.get('/myaccount/:userId', async (req, res) => {
 
 // POST /register
 router.post('/register', async (req, res) => {
-    console.log('POST register is called')
-    console.log(req.body);
+    // console.log('POST register is called')
+    // console.log(req.body);
 
     // Do unique email name checking here
     const response = await User.find(
@@ -72,7 +73,7 @@ router.post('/register', async (req, res) => {
             credit: 1   // 1 free credit for new users
         };
         User.create(newUser);
-        console.log('User created');
+        // console.log('User created');
         res.json({message: 'Registeration success!', check: true});
     } else {
         res.json({message: 'Email has been used', check: false})
@@ -80,9 +81,8 @@ router.post('/register', async (req, res) => {
 })
 
 // PUT /reducecredit
-
 router.put('/reducecredit', async (req, res) => {
-    console.log('/PUT /reducecredit', req.body);
+    // console.log('/PUT /reducecredit', req.body);
     await User.updateOne(
         {email: req.body.email},
         {$set: { 'credit' : req.body.credit -1}}
@@ -91,7 +91,7 @@ router.put('/reducecredit', async (req, res) => {
 
 // PUT /pickskil/:skillId/:userEmail
 router.put('/pickskill/:skillId/:userEmail', async (req, res) => {
-    console.log('/pickskill/:skillId/:userEmail', req.params.skillId, req.params.userEmail);
+    // console.log('/pickskill/:skillId/:userEmail', req.params.skillId, req.params.userEmail);
     await User.updateOne(
         { email: req.params.userEmail },
         { $push: { 'chosenList': req.params.skillId }}
@@ -113,6 +113,50 @@ router.get('/getrate', async (req, res) => {
 
     const response = user.map((user) => user.rating)
     res.json({response})
+
+})
+
+// PUT /boost/:email/:skillid/:credit
+router.put('/boost/:email/:skillId/:credit', async (req, res) => {
+    await User.updateOne(
+        {email: req.params.email},
+        {$set: { 'credit' : req.params.credit -1}}
+    )
+    await Skill.findByIdAndUpdate(req.params.skillId,
+        { $set: { 'boost': true }}
+    )
+})
+
+// PUT /update/name
+router.put('/update/name', async (req, res) => {
+
+    const { userId, name } = req.body;
+
+    await User.findByIdAndUpdate(userId, 
+        { $set: { 'name': name }}
+    )
+})
+
+router.put('/update/password', async (req, res) => {
+    const { userId, password } = req.body;
+
+    const user = await User.findById(userId);
+
+    user.password = password; 
+    await user.save();
+
+});
+
+// PUT /withdraw/:userEmail/:skillId
+router.put('/withdraw/:userEmail/:skillId', async (req, res) => {
+    // console.log('/withdraw/:userEmail/:skillId', req.params.skillId, req.params.userEmail);
+
+    await User.updateOne(
+        { email: req.params.userEmail },
+        { $pull: { 'chosenList': req.params.skillId }}
+    )
+    await Skill.findByIdAndUpdate(req.params.skillId, 
+        { $pull: { 'pplChosen': req.params.userEmail}})
 
 })
 

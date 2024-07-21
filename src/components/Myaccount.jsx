@@ -8,7 +8,7 @@ const IncompletePostList = (props) => {
 
     const pplChosenArray = props.pplChosen.split(', ').filter(ppl => ppl !== '')
 
-    console.log('renew',pplChosenArray)
+    // console.log('renew',pplChosenArray)
 
     const pplChosenJson = { ppl: pplChosenArray}
 
@@ -22,6 +22,15 @@ const IncompletePostList = (props) => {
         return parseFloat((sum / arr.length)).toFixed(2);
     }
 
+    const handleBoost = async (email, skillId, credit) => {
+        if(credit > 0 ) {
+            await axios.put(`http://localhost:5000/api/boost/${email}/${skillId}/${credit}`)
+            .then(window.location = '/myaccount')
+        } else {
+            alert('Not enough credit!')
+        }
+
+    } 
 
     useEffect(() => {
 
@@ -50,7 +59,16 @@ const IncompletePostList = (props) => {
     let pplStr = '';
 
     for (let i = 0; i < pplChosenArray.length; i++) {
-        pplStr += `Email: ${pplChosenArray[i]} <br> Rating: ${ratingArray[i]}<br><br> `
+        pplStr += `Email: &nbsp; &nbsp;${pplChosenArray[i]} <br> Rating: &nbsp; ${ratingArray[i]}<br><br> `
+    }
+
+    let boostStr = 'Boosted';
+    let boostBtn = <button onClick={() => handleBoost(props.userEmail, props.skillId, props.credit)}>Boost! (Cost 1 credit)</button>
+
+    if(props.boost) {
+        boostBtn = ''
+    } else {
+        boostStr = ''
     }
 
     // console.log(pplStr)
@@ -72,16 +90,23 @@ const IncompletePostList = (props) => {
         <div className='col-sm-4'>Description:</div>
         <div className='col-sm-8'>{props.description}</div>
         <div className='col-sm-4'>People chosed:</div>
-        <div className='col-sm-8' dangerouslySetInnerHTML={{ __html: pplStr }} />
+        <div className='col-sm-8'><div dangerouslySetInnerHTML={{ __html: pplStr }} /> </div>
         <div className='col-sm-4'>You want to pair with:</div>
         <div className='col-sm-8'>
             <form onSubmit={handleDeal}>
             <input type='hidden' id='list' value={props.pplChosen}/>
             <input type='hidden' id='skillId' value={props.skillId}/>
             <input type='text' id='deal' value={deal} onChange={(e) => setOnChangeDeal(e.target.value)}/>
-            <input type='submit' value='Comfirm' />
+            &nbsp;&nbsp;
+            <input className="btn btn-primary btn-sm" type='submit' value='Confirm' />
             </form>
         </div>
+        <br /><br />
+        <div className='col-sm-4'>Boost:</div>
+        <div className='col-sm-8'>{boostBtn}{boostStr}</div>
+        <br></br>
+        <br></br>
+        <button className="btn btn-danger" onClick = {() => {props.deleteSkill(props.skillId)}}>Delete Skill</button>
     </div>
     );
 };
@@ -138,7 +163,8 @@ const CompletePostList = (props) => {
             <input type='hidden' id='email' value={props.deal}/>
             <input type='hidden' id='skillId' value={props.skillId}/>
             <input type='text' id='score' value={score} onChange={(e) => setOnChangeScore(e.target.value)}/>
-            <input type='submit' value='Confirm' />
+            &nbsp;&nbsp;
+            <input type='submit' className="btn btn-primary btn-sm" value='Confirm' />
             </form>
             </div>
         </div>
@@ -168,6 +194,9 @@ const IncompleteChosenList = (props) => {
         <div className='col-sm-8'>{date[0]}</div>
         <div className='col-sm-4'>Description:</div>
         <div className='col-sm-8'>{props.description}</div>
+        <br></br>
+        <br></br>
+        <button className="btn btn-danger" onClick = {() => {props.handleWithdraw(props.userEmail, props.skillId)}}>Withdraw</button>
     </div>
     )
 };
@@ -245,13 +274,36 @@ const handleDeal = async (e) => {
     // console.log(deal, skillId)
     // console.log(pplChosenArray)
 
-    if(pplChosenArray.includes(deal)) { // if the name matches
+    if(pplChosenArray.includes(deal) && deal != '') { // if the name matches and non-empty
         const response = await axios.put(`http://localhost:5000/api/deal/${skillId}/${deal}`)
         .then(window.location = '/myaccount')
         // console.log(response.data)
     } else { // not match, pop up an alert window
         alert('Wrong name input! Please check again!')
     }
+}
+
+const deleteSkill = async (skillId) => {
+
+    const confirmDelete = window.confirm('Are you sure to delete the skill? The credits will not be refund and can not be reversed.')
+
+    if(confirmDelete) {
+        await axios.delete(`http://localhost:5000/api/skill/${skillId}`)
+        .then(window.location='/myaccount');
+    }
+
+}
+
+const handleWithdraw = async (userEmail, skillId) => {
+
+    console.log(userEmail,skillId)
+    const confirmDelete = window.confirm('Are you sure to withdraw?')
+
+    if(confirmDelete) {
+        await axios.put(`http://localhost:5000/api/withdraw/${userEmail}/${skillId}`)
+        .then(window.location='/myaccount');
+    }
+
 }
 
 const handleRateFromLearner = async(e) => {
@@ -281,6 +333,10 @@ const handleRateFromTeacher = async(e) => {
         alert('Please rate between 1 - 5 !')
     }
 
+}
+
+const handleUpdate = () => {
+    window.location = '/updateaccount';
 }
 
 
@@ -361,7 +417,6 @@ const Myaccount = () => {
                 <h1>Hi, {user.name}!</h1>
                 <br></br>
                 <h2>Account details:</h2>
-                <div className='accountcontainer'>
                     <div className='account'>
                     <div className='col-sm-2'>Name:</div>
                     <div className='col-sm-10'>{user.name}</div>
@@ -371,9 +426,9 @@ const Myaccount = () => {
                     <div className='col-sm-10'>{user.credit}</div>
                     <div className='col-sm-2'>Your rating:</div>
                     <div className='col-sm-10'>{userRating}</div>
-                    {/* <div className='btn'><button onClick={handleLogout}>Logout</button></div> */}
-                    </div>
                 </div>
+                &nbsp;&nbsp;
+                <button className="btn btn-primary" onClick={handleUpdate}>Update</button>
                 <hr />
 
                 <h2>Skills you post and waiting for pair up:</h2>
@@ -389,6 +444,10 @@ const Myaccount = () => {
                         postDate = {postRecord.postDate}
                         description = {postRecord.description}
                         pplChosen = {postRecord.pplChosen.join(', ')}
+                        boost = {postRecord.boost}
+                        credit = {user.credit}
+                        userEmail = {user.email}
+                        deleteSkill = {deleteSkill}
                         /> 
                     ))}
                 </div>
@@ -452,6 +511,8 @@ const Myaccount = () => {
                             location = {chosenRecord.location}
                             postDate = {chosenRecord.postDate}
                             description = {chosenRecord.description}
+                            handleWithdraw = {handleWithdraw}
+                            userEmail = {userEmail}
                         />
                     ))}
                 </div>
