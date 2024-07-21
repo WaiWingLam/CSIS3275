@@ -57,24 +57,24 @@ const IncompletePostList = (props) => {
 
     return(
     <div className='skill'>
-        <div className='key'>Skill want to learn:</div>
-        <div className='value'>{props.learn}</div>
-        <div className='key'>Learning skill level:</div>
-        <div className='value'>{props.learnLv}</div>
-        <div className='key'>Skill to teach:</div>
-        <div className='value'>{props.teach}</div>
-        <div className='key'>Teaching skill level:</div>
-        <div className='value'>{props.teachLv}</div>
-        <div className='key'>Preferred locations:</div>
-        <div className='value'>{props.location}</div>
-        <div className='key'>Post date:</div>
-        <div className='value'>{date[0]}</div>
-        <div className='key'>Description:</div>
-        <div className='value'>{props.description}</div>
-        <div className='key'>People chosed:</div>
-        <div className='value' dangerouslySetInnerHTML={{ __html: pplStr }} />
-        <div className='key'>You want to pair with:</div>
-        <div className='value'>
+        <div className='col-sm-4'>Skill want to learn:</div>
+        <div className='col-sm-8'>{props.learn}</div>
+        <div className='col-sm-4'>Learning skill level:</div>
+        <div className='col-sm-8'>{props.learnLv}</div>
+        <div className='col-sm-4'>Skill to teach:</div>
+        <div className='col-sm-8'>{props.teach}</div>
+        <div className='col-sm-4'>Teaching skill level:</div>
+        <div className='col-sm-8'>{props.teachLv}</div>
+        <div className='col-sm-4'>Preferred locations:</div>
+        <div className='col-sm-8'>{props.location}</div>
+        <div className='col-sm-4'>Post date:</div>
+        <div className='col-sm-8'>{date[0]}</div>
+        <div className='col-sm-4'>Description:</div>
+        <div className='col-sm-8'>{props.description}</div>
+        <div className='col-sm-4'>People chosed:</div>
+        <div className='col-sm-8' dangerouslySetInnerHTML={{ __html: pplStr }} />
+        <div className='col-sm-4'>You want to pair with:</div>
+        <div className='col-sm-8'>
             <form onSubmit={handleDeal}>
             <input type='hidden' id='list' value={props.pplChosen}/>
             <input type='hidden' id='skillId' value={props.skillId}/>
@@ -93,52 +93,52 @@ const CompletePostList = (props) => {
     if(props.rate) {
     return(
     <div className='skill'>
-        <div className='key'>Skill want to learn:</div>
-        <div className='value'>{props.learn}</div>
-        <div className='key'>Learning skill level:</div>
-        <div className='value'>{props.learnLv}</div>
-        <div className='key'>Skill to teach:</div>
-        <div className='value'>{props.teach}</div>
-        <div className='key'>Teaching skill level:</div>
-        <div className='value'>{props.teachLv}</div>
-        <div className='key'>Preferred locations:</div>
-        <div className='value'>{props.location}</div>
-        <div className='key'>Post date:</div>
-        <div className='value'>{date[0]}</div>
-        <div className='key'>Description:</div>
-        <div className='value'>{props.description}</div>
-        <div className='key'>Paired up with:</div>
-        <div className='value'>{props.deal}</div>
-        <div className='key'>You rated:</div>
-        <div className='value'>{props.rate}</div>
+        <div className='col-sm-4'>Skill want to learn:</div>
+        <div className='col-sm-8'>{props.learn}</div>
+        <div className='col-sm-4'>Learning skill level:</div>
+        <div className='col-sm-8'>{props.learnLv}</div>
+        <div className='col-sm-4'>Skill to teach:</div>
+        <div className='col-sm-8'>{props.teach}</div>
+        <div className='col-sm-4'>Teaching skill level:</div>
+        <div className='col-sm-8'>{props.teachLv}</div>
+        <div className='col-sm-4'>Preferred locations:</div>
+        <div className='col-sm-8'>{props.location}</div>
+        <div className='col-sm-4'>Post date:</div>
+        <div className='col-sm-8'>{date[0]}</div>
+        <div className='col-sm-4'>Description:</div>
+        <div className='col-sm-8'>{props.description}</div>
+        <div className='col-sm-4'>Paired up with:</div>
+        <div className='col-sm-8'>{props.deal}</div>
+        <div className='col-sm-4'>You rated:</div>
+        <div className='col-sm-8'>{props.rate}</div>
     </div>
     );
     } else {
         return(
             <div className='skill'>
-            <div className='key'>Skill want to learn:</div>
-            <div className='value'>{props.learn}</div>
-            <div className='key'>Learning skill level:</div>
-            <div className='value'>{props.learnLv}</div>
-            <div className='key'>Skill to teach:</div>
-            <div className='value'>{props.teach}</div>
-            <div className='key'>Teaching skill level:</div>
-            <div className='value'>{props.teachLv}</div>
-            <div className='key'>Preferred locations:</div>
-            <div className='value'>{props.location}</div>
-            <div className='key'>Post date:</div>
-            <div className='value'>{date[0]}</div>
-            <div className='key'>Description:</div>
-            <div className='value'>{props.description}</div>
-            <div className='key'>Paired up with:</div>
-            <div className='value'>{props.deal}</div>
-            <div className='key'>Rate your partner (1-5):</div>
-            <div className='value'>
+            <div className='col-sm-4'>Skill want to learn:</div>
+            <div className='col-sm-8'>{props.learn}</div>
+            <div className='col-sm-4'>Learning skill level:</div>
+            <div className='col-sm-8'>{props.learnLv}</div>
+            <div className='col-sm-4'>Skill to teach:</div>
+            <div className='col-sm-8'>{props.teach}</div>
+            <div className='col-sm-4'>Teaching skill level:</div>
+            <div className='col-sm-8'>{props.teachLv}</div>
+            <div className='col-sm-4'>Preferred locations:</div>
+            <div className='col-sm-8'>{props.location}</div>
+            <div className='col-sm-4'>Post date:</div>
+            <div className='col-sm-8'>{date[0]}</div>
+            <div className='col-sm-4'>Description:</div>
+            <div className='col-sm-8'>{props.description}</div>
+            <div className='col-sm-4'>Paired up with:</div>
+            <div className='col-sm-8'>{props.deal}</div>
+            <div className='col-sm-4'>Rate your partner (1-5):</div>
+            <div className='col-sm-8'>
             <form onSubmit={handleRateFromLearner}>
             <input type='hidden' id='email' value={props.deal}/>
             <input type='hidden' id='skillId' value={props.skillId}/>
             <input type='text' id='score' value={score} onChange={(e) => setOnChangeScore(e.target.value)}/>
-            <input type='submit' value='Comfirm' />
+            <input type='submit' value='Confirm' />
             </form>
             </div>
         </div>
@@ -150,24 +150,24 @@ const IncompleteChosenList = (props) => {
     const date = props.postDate.split('T')
     return(
     <div className='skill'>
-        <div className='key'>Skill want to learn:</div>
-        <div className='value'>{props.learn}</div>
-        <div className='key'>Learning skill level:</div>
-        <div className='value'>{props.learnLv}</div>
-        <div className='key'>Skill to teach:</div>
-        <div className='value'>{props.teach}</div>
-        <div className='key'>Teaching skill level:</div>
-        <div className='value'>{props.teachLv}</div>
-        <div className='key'>Post user:</div>
-        <div className='value'>{props.postName}</div>
-        <div className='key'>E-mail:</div>
-        <div className='value'>{props.postEmail}</div>
-        <div className='key'>Preferred locations:</div>
-        <div className='value'>{props.location}</div>
-        <div className='key'>Post date:</div>
-        <div className='value'>{date[0]}</div>
-        <div className='key'>Description:</div>
-        <div className='value'>{props.description}</div>
+        <div className='col-sm-4'>Skill want to learn:</div>
+        <div className='col-sm-8'>{props.learn}</div>
+        <div className='col-sm-4'>Learning skill level:</div>
+        <div className='col-sm-8'>{props.learnLv}</div>
+        <div className='col-sm-4'>Skill to teach:</div>
+        <div className='col-sm-8'>{props.teach}</div>
+        <div className='col-sm-4'>Teaching skill level:</div>
+        <div className='col-sm-8'>{props.teachLv}</div>
+        <div className='col-sm-4'>Post user:</div>
+        <div className='col-sm-8'>{props.postName}</div>
+        <div className='col-sm-4'>E-mail:</div>
+        <div className='col-sm-8'>{props.postEmail}</div>
+        <div className='col-sm-4'>Preferred locations:</div>
+        <div className='col-sm-8'>{props.location}</div>
+        <div className='col-sm-4'>Post date:</div>
+        <div className='col-sm-8'>{date[0]}</div>
+        <div className='col-sm-4'>Description:</div>
+        <div className='col-sm-8'>{props.description}</div>
     </div>
     )
 };
@@ -179,51 +179,51 @@ const CompleteChosenList = (props) => {
     if(props.rate) {
         return(
     <div className='skill'>
-        <div className='key'>Skill want to learn:</div>
-        <div className='value'>{props.learn}</div>
-        <div className='key'>Learning skill level:</div>
-        <div className='value'>{props.learnLv}</div>
-        <div className='key'>Skill to teach:</div>
-        <div className='value'>{props.teach}</div>
-        <div className='key'>Teaching skill level:</div>
-        <div className='value'>{props.teachLv}</div>
-        <div className='key'>Post user:</div>
-        <div className='value'>{props.postName}</div>
-        <div className='key'>E-mail:</div>
-        <div className='value'>{props.postEmail}</div>
-        <div className='key'>Preferred locations:</div>
-        <div className='value'>{props.location}</div>
-        <div className='key'>Post date:</div>
-        <div className='value'>{date[0]}</div>
-        <div className='key'>Description:</div>
-        <div className='value'>{props.description}</div>
-        <div className='key'>You rated:</div>
-        <div className='value'>{props.rate}</div>
+        <div className='col-sm-4'>Skill want to learn:</div>
+        <div className='col-sm-8'>{props.learn}</div>
+        <div className='col-sm-4'>Learning skill level:</div>
+        <div className='col-sm-8'>{props.learnLv}</div>
+        <div className='col-sm-4'>Skill to teach:</div>
+        <div className='col-sm-8'>{props.teach}</div>
+        <div className='col-sm-4'>Teaching skill level:</div>
+        <div className='col-sm-8'>{props.teachLv}</div>
+        <div className='col-sm-4'>Post user:</div>
+        <div className='col-sm-8'>{props.postName}</div>
+        <div className='col-sm-4'>E-mail:</div>
+        <div className='col-sm-8'>{props.postEmail}</div>
+        <div className='col-sm-4'>Preferred locations:</div>
+        <div className='col-sm-8'>{props.location}</div>
+        <div className='col-sm-4'>Post date:</div>
+        <div className='col-sm-8'>{date[0]}</div>
+        <div className='col-sm-4'>Description:</div>
+        <div className='col-sm-8'>{props.description}</div>
+        <div className='col-sm-4'>You rated:</div>
+        <div className='col-sm-8'>{props.rate}</div>
     </div>
     )
     } else {
         return(
             <div className='skill'>
-            <div className='key'>Skill want to learn:</div>
-            <div className='value'>{props.learn}</div>
-            <div className='key'>Learning skill level:</div>
-            <div className='value'>{props.learnLv}</div>
-            <div className='key'>Skill to teach:</div>
-            <div className='value'>{props.teach}</div>
-            <div className='key'>Teaching skill level:</div>
-            <div className='value'>{props.teachLv}</div>
-            <div className='key'>Post user:</div>
-            <div className='value'>{props.postName}</div>
-            <div className='key'>E-mail:</div>
-            <div className='value'>{props.postEmail}</div>
-            <div className='key'>Preferred locations:</div>
-            <div className='value'>{props.location}</div>
-            <div className='key'>Post date:</div>
-            <div className='value'>{date[0]}</div>
-            <div className='key'>Description:</div>
-            <div className='value'>{props.description}</div>
-            <div className='key'>Rate your partner (1-5):</div>
-            <div className='value'>
+            <div className='col-sm-4'>Skill want to learn:</div>
+            <div className='col-sm-8'>{props.learn}</div>
+            <div className='col-sm-4'>Learning skill level:</div>
+            <div className='col-sm-8'>{props.learnLv}</div>
+            <div className='col-sm-4'>Skill to teach:</div>
+            <div className='col-sm-8'>{props.teach}</div>
+            <div className='col-sm-4'>Teaching skill level:</div>
+            <div className='col-sm-8'>{props.teachLv}</div>
+            <div className='col-sm-4'>Post user:</div>
+            <div className='col-sm-8'>{props.postName}</div>
+            <div className='col-sm-4'>E-mail:</div>
+            <div className='col-sm-8'>{props.postEmail}</div>
+            <div className='col-sm-4'>Preferred locations:</div>
+            <div className='col-sm-8'>{props.location}</div>
+            <div className='col-sm-4'>Post date:</div>
+            <div className='col-sm-8'>{date[0]}</div>
+            <div className='col-sm-4'>Description:</div>
+            <div className='col-sm-8'>{props.description}</div>
+            <div className='col-sm-4'>Rate your partner (1-5):</div>
+            <div className='col-sm-8'>
             <form onSubmit={handleRateFromTeacher}>
             <input type='hidden' id='email' value={props.postEmail}/>
             <input type='hidden' id='skillId' value={props.skillId}/>
@@ -346,31 +346,32 @@ const Myaccount = () => {
     // show the skills posted by user and paired up
     const incompleteList = postList.filter(skill => skill.caseDone === false)
 
-    const handleLogout = async () => {
-        try {
-            localStorage.clear();
-            window.location = '/';
-        } catch (error) {
-            console.error('Logout error: ', error);
-        } 
-    }
+    // const handleLogout = async () => {
+    //     try {
+    //         localStorage.clear();
+    //         window.location = '/';
+    //     } catch (error) {
+    //         console.error('Logout error: ', error);
+    //     } 
+    // }
 
     if(userId) {
         return(
             <div>
-                <h1>Hi, {user.name}</h1>
+                <h1>Hi, {user.name}!</h1>
+                <br></br>
                 <h2>Account details:</h2>
                 <div className='accountcontainer'>
                     <div className='account'>
-                    <div className='key'>Name</div>
-                    <div className='value'>{user.name}</div>
-                    <div className='key'>E-mail</div>
-                    <div className='value'>{user.email}</div>
-                    <div className='key'>Credits available:</div>
-                    <div className='value'>{user.credit}</div>
-                    <div className='key'>Your rating:</div>
-                    <div className='value'>{userRating}</div>
-                    <div className='btn'><button onClick={handleLogout}>Logout</button></div>
+                    <div className='col-sm-2'>Name:</div>
+                    <div className='col-sm-10'>{user.name}</div>
+                    <div className='col-sm-2'>E-mail:</div>
+                    <div className='col-sm-10'>{user.email}</div>
+                    <div className='col-sm-2'>Credits available:</div>
+                    <div className='col-sm-10'>{user.credit}</div>
+                    <div className='col-sm-2'>Your rating:</div>
+                    <div className='col-sm-10'>{userRating}</div>
+                    {/* <div className='btn'><button onClick={handleLogout}>Logout</button></div> */}
                     </div>
                 </div>
                 <hr />
@@ -414,8 +415,7 @@ const Myaccount = () => {
 
                 <hr />
 
-                <h2>The poster has chosen you!</h2>
-                <h2>Please response as soon as possible:</h2>
+                <h2>You have been chosen! Please contact as soon as possible:</h2>
                 <div className='skillcontainer'>
                     {completeChosenList.map((postRecord) => (
                         <CompleteChosenList

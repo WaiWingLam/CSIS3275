@@ -5,25 +5,27 @@ const LearnList = (props) => {
     const date = props.postDate.split('T')
     return(
     <div className='skill'>
-        <div className='key'>Skill want to learn:</div>
-        <div className='value'>{props.learn}</div>
-        <div className='key'>Learning skill level:</div>
-        <div className='value'>{props.learnLv}</div>
-        <div className='key'>Skill to teach:</div>
-        <div className='value'>{props.teach}</div>
-        <div className='key'>Teaching skill level:</div>
-        <div className='value'>{props.teachLv}</div>
-        <div className='key'>Post user:</div>
-        <div className='value'>{props.postName}</div>
-        <div className='key'>E-mail:</div>
-        <div className='value'>{props.postEmail}</div>
-        <div className='key'>Preferred locations:</div>
-        <div className='value'>{props.location}</div>
-        <div className='key'>Post date:</div>
-        <div className='value'>{date[0]}</div>
-        <div className='key'>Description:</div>
-        <div className='value'>{props.description}</div>
-        <div className='btn'><button onClick = {() => {props.chooseSkill(props.postEmail, props.pplChosen, props.skillId, props.userEmail)}}>Pick me!</button></div>
+        <div className='col-sm-4'>Skill want to learn:</div>
+        <div className='col-sm-8'>{props.learn}</div>
+        <div className='col-sm-4'>Learning skill level:</div>
+        <div className='col-sm-8'>{props.learnLv}</div>
+        <div className='col-sm-4'>Skill to teach:</div>
+        <div className='col-sm-8'>{props.teach}</div>
+        <div className='col-sm-4'>Teaching skill level:</div>
+        <div className='col-sm-8'>{props.teachLv}</div>
+        <div className='col-sm-4'>Post user:</div>
+        <div className='col-sm-8'>{props.postName}</div>
+        <div className='col-sm-4'>E-mail:</div>
+        <div className='col-sm-8'>{props.postEmail}</div>
+        <div className='col-sm-4'>Preferred locations:</div>
+        <div className='col-sm-8'>{props.location}</div>
+        <div className='col-sm-4'>Post date:</div>
+        <div className='col-sm-8'>{date[0]}</div>
+        <div className='col-sm-4'>Description:</div>
+        <div className='col-sm-8'>{props.description}</div>
+        <br></br>
+        <br></br>
+        <button className="btn btn-primary" onClick = {() => {props.chooseSkill(props.postEmail, props.pplChosen, props.skillId, props.userEmail)}}>Pick me!</button>
     </div>
     )
 };

@@ -49,15 +49,16 @@ const Admin = () => {
     if(admin === 'login') {
         return(
             <div>
-                <h1>You have logged in.</h1>
-                <button onClick={handleLogout}>Logout</button>
+                <h2>You have logged in as admin.</h2>
+                <button onClick={handleLogout}>Admin Logout</button>
                 <hr />
-                <h1>Update credit: </h1>
+                <h2>Update credit: </h2>
                 <form onSubmit={handleUpdateCredit}>
-                    <b>User email: </b>
+                    User email:<br></br>
                     <input type='text' id='userEmail' required value={userEmail} onChange={(e) => setOnChangeUserEmail(e.target.value)} />
                     <p></p>
-                    <b>New credit: </b>
+                    New credit:
+                    <br></br>
                     <input type='text' id='credit' required value={credit} onChange={(e) => setOnChangeCredit(e.target.value)} />
                     <p></p>
                     <input type='submit' value="Update" />
@@ -68,16 +69,17 @@ const Admin = () => {
     } else {
     return(
         <div>
-        <h1>Admin Login:</h1>
-        <form onSubmit={tryLogin}>
-            <b>E-mail: </b>
-            <input type="text" id='email' required value={email} onChange={(e) => setOnChangeEmail(e.target.value)} />
-            <p></p>
-            <b>Password: </b>
-            <input type="password" id='password' required value={password} onChange={(e) => setOnChangePassword(e.target.value)} />
-            <p></p>
-            <input type="submit" value="Login" />
-        </form>
+            <h1>Admin Login:</h1>
+            <div className='login'>
+            <form onSubmit={tryLogin}>
+                E-mail: 
+                <input type="text" id='email' required value={email} onChange={(e) => setOnChangeEmail(e.target.value)} />
+                Password:
+                <input type="password" id='password' required value={password} onChange={(e) => setOnChangePassword(e.target.value)} />
+                <p></p>
+                <input type="submit" value="Login" />
+            </form>
+            </div>
         <p></p>
         <div id='wrongmsg'></div>
     </div>

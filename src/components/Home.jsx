@@ -1,37 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const handleLogout = () => {
-    try {
-        localStorage.clear();
-        window.location = '/';
-    } catch (error) {
-        console.error('Logout error');
-    } 
-}
-
 const LearnList = (props) => {
     const date = props.postDate.split('T')
     return(
-    <div className='skill'>
-        <div className='key'>Skill want to learn:</div>
-        <div className='value'>{props.learn}</div>
-        <div className='key'>Learning skill level:</div>
-        <div className='value'>{props.learnLv}</div>
-        <div className='key'>Skill to teach:</div>
-        <div className='value'>{props.teach}</div>
-        <div className='key'>Teaching skill level:</div>
-        <div className='value'>{props.teachLv}</div>
-        <div className='key'>Post user:</div>
-        <div className='value'>{props.postName}</div>
-        <div className='key'>E-mail:</div>
-        <div className='value'>{props.postEmail}</div>
-        <div className='key'>Preferred locations:</div>
-        <div className='value'>{props.location}</div>
-        <div className='key'>Post date:</div>
-        <div className='value'>{date[0]}</div>
-        <div className='key'>Description:</div>
-        <div className='value'>{props.description}</div>
+        <div className='skill'>
+        <div className='col-sm-4'>Want to learn:</div>
+        <div className='col-sm-8'>{props.learn}</div>
+        <p></p>
+        <div className='col-sm-4'>Level:</div>
+        <div className='col-sm-8'>{props.learnLv}</div>
+        <p></p>
+        <div className='col-sm-4'>Can teach:</div>
+        <div className='col-sm-8'>{props.teach}</div>
+        <p></p>
+        <div className='col-sm-4'>Level:</div>
+        <div className='col-sm-8'>{props.teachLv}</div>
+        <p></p>
+        <div className='col-sm-4'>Post user:</div>
+        <div className='col-sm-8'>{props.postName}</div>
+        <p></p>
+        <div className='col-sm-4'>E-mail:</div>
+        <div className='col-sm-8'>{props.postEmail}</div>
+        <p></p>
+        <div className='col-sm-4'>Preferred locations:</div>
+        <div className='col-sm-8'>{props.location}</div>
+        <p></p>
+        <div className='col-sm-4'>Post date:</div>
+        <div className='col-sm-8'>{date[0]}</div>
+        <p></p>
+        <div className='col-sm-4'>Description:</div>
+        <div className='col-sm-8'>{props.description}</div>
     </div>
     )
 };
@@ -52,7 +51,6 @@ const Home = () => {
 
     return(
         <div>
-            <button onClick={handleLogout}>Logout</button>
             <h1>New skills recently:</h1>
             <div className='skillcontainer'>
                     {learnList.map((learnRecord) => (

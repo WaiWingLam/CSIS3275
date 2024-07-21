@@ -68,8 +68,9 @@ const Postskills = () => {
                     Your available location:
                     <input type='text' id='location' required value={location} onChange={(e) => setOnChangeLocation(e.target.value)} />
                     Tell us more about you:
-                    <textarea id='description' value={description} onChange={(e) => setOnChangeDescription(e.target.value)}/>
-                    <input type='submit' value="Post" />
+                    <textarea id='description' vcalue={description} onChange={(e) => setOnChangeDescription(e.target.value)}/>
+                    <p></p>
+                    <input type='submit' className="w-100 btn btn-primary btn-lg" value="Post" />
                 </form>
                 </div>
             </div>

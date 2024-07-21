@@ -11,6 +11,9 @@ import Myaccount from './Myaccount';
 import Postskills from './Postskills';
 import Register from './Register';
 import Admin from './Admin';
+import Addcredits from './Addcredits';
+import Aboutus from './Aboutus';
+import Messenger from './Messenger';
 
 const App = () => {
 
@@ -19,11 +22,14 @@ const App = () => {
         <Menubar />
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/aboutus" element={<Aboutus />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/myaccount" element={<Myaccount />} />
             <Route path="/learnskills" element={<Learnskills />} />
             <Route path="/postskills" element={<Postskills />} />
+            <Route path="/addcredits" element={<Addcredits />} />
+            <Route path="messenger" element={<Messenger />} />
             <Route path="/admin" element={<Admin />} />
         </Routes>
     </div>
