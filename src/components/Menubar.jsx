@@ -35,9 +35,9 @@ const Menubar = () => {
                     <li className="nav-item">
                     <a className="nav-link" href="/addcredits">Add credits</a>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                     <a className="nav-link" href="/messenger">Messenger</a>
-                    </li>
+                    </li> */}
                     </ul>
                     <button className="btn btn-outline-success" onClick={handleLogout}>Logout</button>
                     </div>

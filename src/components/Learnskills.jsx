@@ -107,6 +107,11 @@ const Learnskills = () => {
     if(userId) { // logged in
         return(
             <div>
+                <br />
+                <h3>Tips</h3>
+                <br />
+                If you're interested in acquiring certain skills but lack of the necessary request, you may try send a message to explore alternative exchange.
+                <br /><br />
                 <h1>Featured Suggestions:</h1>
                 <div className='skillcontainer'>
                 {randomBoostedList.map((learnRecord) => (

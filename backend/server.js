@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+require('dotenv').config({ path: './csis3275.env' });
 const app = express();
+
 
 app.use(cors());
 app.use(express.json());
@@ -10,9 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const port = 5000;
-// const uri = 'mongodb://localhost:27017/CSIS3275'
 
-const uri = 'mongodb+srv://CSIS3275:2024summer@csis3275.egalcdu.mongodb.net/'
+const uri = process.env.DATABASE_URI || 'mongodb://localhost:27017/CSIS3275'
 
 // Set-up database
 mongoose.connect(uri)
