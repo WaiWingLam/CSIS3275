@@ -59,7 +59,16 @@ const IncompletePostList = (props) => {
     let pplStr = '';
 
     for (let i = 0; i < pplChosenArray.length; i++) {
-        pplStr += `Email: &nbsp; &nbsp;${pplChosenArray[i]} <br> Rating: &nbsp; ${ratingArray[i]}<br><br> `
+        pplStr += `Email: &nbsp; &nbsp;
+        <span 
+            class='text-primary' 
+            style='text-decoration: underline; cursor: pointer;' 
+            onclick='window.location="/profile/${pplChosenArray[i]}"'
+        >
+        ${pplChosenArray[i]} 
+        </span> 
+        <br> 
+        Rating: &nbsp; ${ratingArray[i]}<br><br> `
     }
 
     let boostStr = 'Boosted';
@@ -133,7 +142,11 @@ const CompletePostList = (props) => {
         <div className='col-sm-4'>Description:</div>
         <div className='col-sm-8'>{props.description}</div>
         <div className='col-sm-4'>Paired up with:</div>
-        <div className='col-sm-8'>{props.deal}</div>
+        <div className='col-sm-8 text-primary cursor-pointer text-left' 
+            onClick = {() => window.location=`/profile/${props.deal}`} 
+            style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+            {props.deal}
+        </div>
         <div className='col-sm-4'>You rated:</div>
         <div className='col-sm-8'>{props.rate}</div>
     </div>
@@ -156,7 +169,11 @@ const CompletePostList = (props) => {
             <div className='col-sm-4'>Description:</div>
             <div className='col-sm-8'>{props.description}</div>
             <div className='col-sm-4'>Paired up with:</div>
-            <div className='col-sm-8'>{props.deal}</div>
+            <div className='col-sm-8 text-primary cursor-pointer text-left' 
+                onClick = {() => window.location=`/profile/${props.deal}`} 
+                style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                {props.deal}
+            </div>
             <div className='col-sm-4'>Rate your partner (1-5):</div>
             <div className='col-sm-8'>
             <form onSubmit={handleRateFromLearner}>
@@ -187,7 +204,11 @@ const IncompleteChosenList = (props) => {
         <div className='col-sm-4'>Post user:</div>
         <div className='col-sm-8'>{props.postName}</div>
         <div className='col-sm-4'>E-mail:</div>
-        <div className='col-sm-8'>{props.postEmail}</div>
+        <div className='col-sm-8 text-primary cursor-pointer text-left' 
+            onClick = {() => window.location=`/profile/${props.postEmail}`} 
+            style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+            {props.postEmail}
+        </div>
         <div className='col-sm-4'>Preferred locations:</div>
         <div className='col-sm-8'>{props.location}</div>
         <div className='col-sm-4'>Post date:</div>
@@ -219,7 +240,11 @@ const CompleteChosenList = (props) => {
         <div className='col-sm-4'>Post user:</div>
         <div className='col-sm-8'>{props.postName}</div>
         <div className='col-sm-4'>E-mail:</div>
-        <div className='col-sm-8'>{props.postEmail}</div>
+        <div className='col-sm-8 text-primary cursor-pointer text-left' 
+            onClick = {() => window.location=`/profile/${props.postEmail}`} 
+            style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+            {props.postEmail}
+        </div>
         <div className='col-sm-4'>Preferred locations:</div>
         <div className='col-sm-8'>{props.location}</div>
         <div className='col-sm-4'>Post date:</div>
@@ -244,7 +269,11 @@ const CompleteChosenList = (props) => {
             <div className='col-sm-4'>Post user:</div>
             <div className='col-sm-8'>{props.postName}</div>
             <div className='col-sm-4'>E-mail:</div>
-            <div className='col-sm-8'>{props.postEmail}</div>
+            <div className='col-sm-8 text-primary cursor-pointer text-left' 
+                onClick = {() => window.location=`/profile/${props.postEmail}`} 
+                style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                {props.postEmail}
+            </div>
             <div className='col-sm-4'>Preferred locations:</div>
             <div className='col-sm-8'>{props.location}</div>
             <div className='col-sm-4'>Post date:</div>
@@ -417,7 +446,7 @@ const Myaccount = () => {
                 <h1>Hi, {user.name}!</h1>
                 <br></br>
                 <h2>Account details:</h2>
-                    <div className='account'>
+                <div className='account'>
                     <div className='col-sm-2'>Name:</div>
                     <div className='col-sm-10'>{user.name}</div>
                     <div className='col-sm-2'>E-mail:</div>

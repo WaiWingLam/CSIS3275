@@ -16,7 +16,11 @@ const LearnList = (props) => {
         <div className='col-sm-4'>Post user:</div>
         <div className='col-sm-8'>{props.postName}</div>
         <div className='col-sm-4'>E-mail:</div>
-        <div className='col-sm-8'>{props.postEmail}</div>
+        <div className='col-sm-8 text-primary cursor-pointer text-left' 
+            onClick = {() => window.location=`/profile/${props.postEmail}`} 
+            style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+            {props.postEmail}
+        </div>
         <div className='col-sm-4'>Preferred locations:</div>
         <div className='col-sm-8'>{props.location}</div>
         <div className='col-sm-4'>Post date:</div>

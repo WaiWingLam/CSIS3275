@@ -160,4 +160,29 @@ router.put('/withdraw/:userEmail/:skillId', async (req, res) => {
 
 })
 
+//GET /getotherusers/:name
+router.get('/getotherusers/:name', async (req, res) => {
+    const user = await User.find(
+        { email: req.params.name }
+    )
+    const list = await Skill.find(
+        { $and: { caseDone: true, 
+                    $or: [ 
+                        { postEmail: req.params.name }, 
+                        { deal: req.params.name }
+                    ]}}
+    )
+    
+    // console.log(user)
+    // console.log(list)
+
+    const response = {
+        user: user,
+        skillList: list
+    }
+
+    res.json({message: 'Get account info success!', info: response});
+
+})
+
 module.exports = router;

@@ -15,6 +15,7 @@ import Aboutus from './Aboutus';
 import Messenger from './Messenger';
 import UpdateAccount from './Updateaccount';
 import Error from './Error';
+import Profile from './Profile'
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/learnskills" element={<Learnskills />} />
             <Route path="/postskills" element={<Postskills />} />
             <Route path="/addcredits" element={<Addcredits />} />
+            <Route path="/profile/:name" element={<Profile />} />
             {/* <Route path="messenger" element={<Messenger />} /> */}
             <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<Error />} />
