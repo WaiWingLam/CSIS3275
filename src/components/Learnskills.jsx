@@ -113,8 +113,8 @@ const Learnskills = () => {
             <div>
                 <br />
                 <h3>Tips</h3>
-                <br />
-                If you're interested in acquiring certain skills but lack of the necessary request, you may try send a message to explore alternative exchange.
+                <li>If you're interested in acquiring certain skills but lack of the necessary request, try to send a message to explore alternative exchange.</li>
+                <li>You may use "Ctrl + F" to access the search function of your browser.</li>
                 <br /><br />
                 <h1>Featured Suggestions:</h1>
                 <div className='skillcontainer'>
